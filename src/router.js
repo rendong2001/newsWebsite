@@ -4,6 +4,13 @@ import Login from './components/Login.vue'
 import Home from './components/Home.vue'
 import index from './components/page/index.vue'
 import introduce from './components/page/introduce.vue'
+import zhengce from './components/page/zhengce.vue'
+import keXieXiangMu from './components/page/keXieXiangMu.vue'
+import xueShuJiaoLiu from './components/page/xueShuJiaoLiu.vue'
+import banShiZhiNan from './components/page/banShiZhiNan.vue'
+import kePu from './components/page/kePu.vue'
+import xueXiaoShouYe from './components/page/xueXiaoShouYe.vue'
+import telephone from './components/page/telephone.vue'
 
 
 Vue.use(Router)
@@ -28,6 +35,41 @@ const router = new Router({
           path:'introduce',
           name:'introduce',
           component:introduce
+        },
+        {
+          path:'zhengce',
+          name:'zhengce',
+          component:zhengce
+        },
+        {
+          path:'keXieXiangMu',
+          name:'keXieXiangMu',
+          component:keXieXiangMu
+        },
+        {
+          path:'xueShuJiaoLiu',
+          name:'xueShuJiaoLiu',
+          component:xueShuJiaoLiu
+        },
+        {
+          path:'banShiZhiNan',
+          name:'banShiZhiNan',
+          component:banShiZhiNan
+        },
+        {
+          path:'kePu',
+          name:'kePu',
+          component:kePu
+        },
+        {
+          path:'xueXiaoShouYe',
+          name:'xueXiaoShouYe',
+          component:xueXiaoShouYe
+        },
+        {
+          path:'telephone',
+          name:'telephone',
+          component:telephone
         },
       ]
     }
