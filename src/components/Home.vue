@@ -14,6 +14,7 @@
         background-color="rgb(64, 112, 186)"
         text-color="white"
         class="menu"
+        active-text-color="#000000"
         :default-active="activeIndex"
         @select="handleSelect"
       >
@@ -34,7 +35,7 @@
         <router-view></router-view>
       </el-main>
     </el-container>
-    <el-footer>Footer</el-footer>
+    <el-footer>@平顶山学院科学技术协会</el-footer>
   </el-container>
 </template>
 
@@ -98,5 +99,11 @@ export default {
 }
 .main {
   padding: 20px 5px;
+}
+.el-footer {
+  font-size: 15px;
+  color: white;
+  text-align: center;
+  line-height: 60px;
 }
 </style>
