@@ -1,6 +1,19 @@
 <template>
   <div>
-    <span>政策</span>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
+    <span>政策</span><br>
   </div>
 </template>
 

@@ -1,6 +1,47 @@
 <template>
   <div>
-    <span>学校首页</span>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
+    <span>学校首页</span><br>
   </div>
 </template>
 

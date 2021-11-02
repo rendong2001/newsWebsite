@@ -1,6 +1,15 @@
 <template>
   <div>
-    <span>联系我们</span>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
+    <span>联系我们</span><br>
   </div>
 </template>
 

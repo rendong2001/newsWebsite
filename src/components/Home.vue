@@ -1,11 +1,13 @@
 <template>
   <el-container class="home-container">
+    <!-- 主页头部 -->
     <el-header>
       <div>
         <img src="../assets/xiaohui4.png" alt="" />
       </div>
       <div class="bg"></div>
     </el-header>
+    <!-- 主页导航栏 -->
     <el-row>
       <el-menu
         mode="horizontal"
@@ -27,7 +29,8 @@
       </el-menu>
     </el-row>
     <el-container>
-      <el-main>
+      <!-- 更变的内容区域 -->
+      <el-main class="main">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -92,5 +95,8 @@ export default {
 }
 .el-footer {
   background-color: rgb(85, 81, 82);
+}
+.main {
+  padding: 20px 5px;
 }
 </style>
