@@ -1,21 +1,14 @@
 <template>
   <div>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
-    <span>联系我们</span><br>
+    <globalTitle />
   </div>
 </template>
 
 <script>
+import globalTitle from '../globalTitle.vue'
 export default {
-  name: 'zhengce'
+  components: { globalTitle},
+  name: 'telephone'
 }
 </script>
 

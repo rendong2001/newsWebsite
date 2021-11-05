@@ -1,25 +1,14 @@
 <template>
   <div>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
-    <span>科普风采</span><br>
+    <globalTitle />
   </div>
 </template>
 
 <script>
+import globalTitle from '../globalTitle.vue'
 export default {
-  name: 'zhengce'
+  components: { globalTitle},
+  name: 'kePu'
 }
 </script>
 

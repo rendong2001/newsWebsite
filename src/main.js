@@ -6,10 +6,11 @@ import './plugins/element.js'
 import './assets/fonts/iconfont.css'
 // 导入全局样式表
 import './assets/css/global.css'
+import './assets/css/my_style.css'
 
 import axios from 'axios'
 // 配置请求的跟路径
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1'
+axios.defaults.baseURL = 'http://10.2.41.131:8080'
 axios.interceptors.request.use(config => {
   console.log(config)
   config.headers.Authorization = window.sessionStorage.getItem('token')

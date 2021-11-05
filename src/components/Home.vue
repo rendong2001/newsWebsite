@@ -18,21 +18,19 @@
         :default-active="activeIndex"
         @select="handleSelect"
       >
-        <el-menu-item index="index">首页</el-menu-item>
-        <el-menu-item index="introduce">科协概况</el-menu-item>
-        <el-menu-item index="zhengce">政策法规</el-menu-item>
-        <el-menu-item index="keXieXiangMu">科协项目</el-menu-item>
-        <el-menu-item index="xueShuJiaoLiu">学术交流</el-menu-item>
-        <el-menu-item index="banShiZhiNan">办事指南</el-menu-item>
-        <el-menu-item index="kePu">科普风采</el-menu-item>
-        <el-menu-item index="xueXiaoShouYe">学校首页</el-menu-item>
-        <el-menu-item index="telephone">联系我们</el-menu-item>
+        <el-menu-item 
+          :key="index"
+          v-for="(item,index) in menuList"
+          :index="item.index"
+        >
+          {{ item.name }}
+        </el-menu-item>
       </el-menu>
     </el-row>
     <el-container>
       <!-- 更变的内容区域 -->
       <el-main class="main">
-        <router-view></router-view>
+        <router-view class="box"></router-view>
       </el-main>
     </el-container>
     <el-footer>@平顶山学院科学技术协会</el-footer>
@@ -44,14 +42,36 @@ export default {
   name: '',
   data() {
     return {
-      activeIndex: 'index'
+      activeIndex: 'index',
+      menuList:[
+        {index:'index',name:'首页'},
+        {index:'introduce',name:'科协概况'},
+        {index:'zhengce',name:'政策法规'},
+        {index:'keXieXiangMu',name:'科协项目'},
+        {index:'xueShuJiaoLiu',name:'学术交流'},
+        {index:'banShiZhiNan',name:'办事指南'},
+        {index:'kePu',name:'科普风采'},
+        {index:'xueXiaoShouYe',name:'学校首页'},
+        {index:'telephone',name:'联系我们'},
+      ]
     }
+  },
+  created(){
+  },
+  mounted(){
+    
+  },
+  watch:{
+
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
       this.$router.push({
-        path: '/home/' + keyPath
+        path: '/home/' + key,
+        query:{
+          title:key
+        }
       })
     }
   }
@@ -105,5 +125,9 @@ export default {
   color: white;
   text-align: center;
   line-height: 60px;
+}
+.box{
+  width: 1200px;
+  margin: 0 auto;
 }
 </style>

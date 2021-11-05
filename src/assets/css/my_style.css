@@ -1,0 +1,30 @@
+.ft-20{
+  font-size: 20px;
+}
+.mart5{
+  margin-top: 5px !important;
+}
+.mart10{
+  margin-top: 10px !important;
+}
+.mart15{
+  margin-top: 15px !important;
+}
+.padt10{
+  padding-top:10px !important;
+}
+.flex-v{
+  display: flex;
+}
+.flex-conter{
+  justify-content: center;
+}
+.flex-between{
+  justify-content: space-between;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}

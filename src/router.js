@@ -11,13 +11,17 @@ import banShiZhiNan from './components/page/banShiZhiNan.vue'
 import kePu from './components/page/kePu.vue'
 import xueXiaoShouYe from './components/page/xueXiaoShouYe.vue'
 import telephone from './components/page/telephone.vue'
+import schoolMessage from './views/homePage/schoolMessage'
+import noticeMessage from './views/homePage/noticeMessage'
+import moreMessage from './views/homePage/moreMessage'
+import workMessage from './views/homePage/workMessage'
 
 
 Vue.use(Router)
 
 const router = new Router({
   routes: [
-    { path: '/', redirect: '/login' },
+    { path: '/', redirect: '/home' },
     { path: '/login', component: Login },
     { 
       path: '/home', 
@@ -71,6 +75,26 @@ const router = new Router({
           name:'telephone',
           component:telephone
         },
+        {
+          path:'schoolMessage',
+          name:'schoolMessage',
+          component:schoolMessage
+        },
+        {
+          path:'noticeMessage',
+          name:'noticeMessage',
+          component:noticeMessage
+        },
+        {
+          path:'moreMessage',
+          name:'moreMessage',
+          component:moreMessage
+        },
+        {
+          path:'workMessage',
+          name:'workMessage',
+          component:workMessage
+        },
       ]
     }
   ]
@@ -86,7 +110,7 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   // 获取token
   const tokenStr = window.sessionStorage.getItem('token')
-  if (!tokenStr) return next('/login')
+  // if (!tokenStr) return next('/login')
   next()
 })
 

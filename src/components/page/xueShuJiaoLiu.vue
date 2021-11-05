@@ -1,39 +1,14 @@
 <template>
   <div>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
-    <span>学术交流</span><br>
+    <globalTitle />
   </div>
 </template>
 
 <script>
+import globalTitle from '../globalTitle.vue'
 export default {
-  name: 'zhengce'
+  components: { globalTitle},
+  name: 'xueShuJiaoLiu'
 }
 </script>
 

@@ -1,28 +1,14 @@
 <template>
   <div>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
-    <span>科协项目</span><br>
+    <globalTitle />
   </div>
 </template>
 
 <script>
+import globalTitle from '../globalTitle.vue'
 export default {
-  name: 'zhengce'
+  components: { globalTitle},
+  name: 'keXieXiangMu'
 }
 </script>
 

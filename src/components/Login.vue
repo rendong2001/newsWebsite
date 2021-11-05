@@ -14,9 +14,9 @@
         class="login_form"
       >
         <!-- 用户名 -->
-        <el-form-item prop="username">
+        <el-form-item prop="account">
           <el-input
-            v-model="loginForm.username"
+            v-model="loginForm.account"
             prefix-icon="iconfont icon-user"
           ></el-input>
         </el-form-item>
@@ -44,13 +44,13 @@ export default {
     return {
       // 这是登录表单的数据绑定对象
       loginForm: {
-        username: 'admin',
+        account: 'admin',
         password: '123456'
       },
       // 这是表单的验证规则对象
       loginFormRules: {
         // 验证用户名是否合法
-        username: [
+        account: [
           { required: true, message: '请输入登录名称', trigger: 'blur' },
           {
             min: 3,

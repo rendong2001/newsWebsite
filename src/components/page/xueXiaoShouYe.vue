@@ -1,53 +1,14 @@
 <template>
   <div>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
-    <span>学校首页</span><br>
+    <globalTitle />
   </div>
 </template>
 
 <script>
+import globalTitle from '../globalTitle.vue'
 export default {
-  name: 'zhengce'
+  components: { globalTitle},
+  name: 'xueXiaoShouYe'
 }
 </script>
 

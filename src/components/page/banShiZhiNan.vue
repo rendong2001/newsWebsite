@@ -1,29 +1,14 @@
 <template>
   <div>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
-    <span>办事指南</span><br>
+    <globalTitle />
   </div>
 </template>
 
 <script>
+import globalTitle from '../globalTitle.vue'
 export default {
-  name: 'zhengce'
+  components: { globalTitle},
+  name: 'banShiZhiNan'
 }
 </script>
 
