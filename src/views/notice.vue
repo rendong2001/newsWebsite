@@ -2,14 +2,14 @@
   <div>
     <el-row type="flex" class="row-bg underline" justify="space-between">
       <span>通知公告</span>
-      <span @click="goMore('通知公告')">
+      <span @click="goMore('通知公告')" class="liPointer">
         更多<i class="el-icon-d-arrow-right"></i>
       </span>
     </el-row>
     <div>
       <ul>
         <li 
-          class="lieBiao"
+          class="lieBiao liPointer"
           :key="index"
           v-for="(item ,index) in noticeList"
         >

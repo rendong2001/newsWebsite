@@ -7,7 +7,7 @@
       <div v-if="this.$route.query.type == '通知公告'">
         <ul>
           <li
-            class="lieBiao flex-v flex-conter padt10"
+            class="lieBiao flex-v flex-conter padt10 liPointer"
             :key="index"
             v-for="(item, index) in noticeList"
           >
@@ -23,7 +23,7 @@
       </div>
       <div v-if="this.$route.query.type == '学院动态'">
         <ul>
-          <li :key="index" v-for="(item, index) in schoolList">
+          <li :key="index" v-for="(item, index) in schoolList" class="liPointer">
             <!-- <a href="item.path"> {{ item.title }} </a> -->
             <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
             <div @click="toNoticeMsg(item.title)">{{ item.title }}</div>
@@ -32,7 +32,7 @@
       </div>
       <div v-if="this.$route.query.type == '工作状态'">
         <ul>
-          <li :key="index" v-for="(item, index) in workList">
+          <li :key="index" v-for="(item, index) in workList" class="liPointer">
             <!-- <a href="item.path"> {{ item.title }} </a> -->
             <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
             <div @click="toNoticeMsg(item.title)">{{ item.title }}</div>

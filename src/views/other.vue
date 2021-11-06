@@ -4,7 +4,7 @@
       <span>友情链接</span>
       <div>
         <ul>
-          <li class="lieBiao" :key="index" v-for="(item, index) in lianJieList">
+          <li class="lieBiao liPointer" :key="index" v-for="(item, index) in lianJieList">
             {{ item.name }}
           </li>
         </ul>

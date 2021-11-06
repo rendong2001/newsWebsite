@@ -2,11 +2,11 @@
   <div>
     <el-row type="flex" justify="space-between" class="underline">
       <span>学院动态</span>
-      <span @click="goMore('学院动态')">更多<i class="el-icon-d-arrow-right"></i> </span>
+      <span @click="goMore('学院动态')" class="liPointer">更多<i class="el-icon-d-arrow-right"></i> </span>
     </el-row>
     <div>
       <ul>
-        <li :key="index" v-for="(item, index) in schoolList">
+        <li :key="index" v-for="(item, index) in schoolList" class="liPointer">
           <!-- <a href="item.path"> {{ item.title }} </a> -->
           <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
           <div @click="toSchoolMsg(item.title)"> {{ item.title }} </div>
