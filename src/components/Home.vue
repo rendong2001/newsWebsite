@@ -18,9 +18,9 @@
         :default-active="activeIndex"
         @select="handleSelect"
       >
-        <el-menu-item 
+        <el-menu-item
           :key="index"
-          v-for="(item,index) in menuList"
+          v-for="(item, index) in menuList"
           :index="item.index"
         >
           {{ item.name }}
@@ -43,36 +43,35 @@ export default {
   data() {
     return {
       activeIndex: 'index',
-      menuList:[
-        {index:'index',name:'首页'},
-        {index:'introduce',name:'科协概况'},
-        {index:'zhengce',name:'政策法规'},
-        {index:'keXieXiangMu',name:'科协项目'},
-        {index:'xueShuJiaoLiu',name:'学术交流'},
-        {index:'banShiZhiNan',name:'办事指南'},
-        {index:'kePu',name:'科普风采'},
-        {index:'xueXiaoShouYe',name:'学校首页'},
-        {index:'telephone',name:'联系我们'},
+      menuList: [
+        { index: 'index', name: '首页' },
+        { index: 'introduce', name: '科协概况' },
+        { index: 'zhengce', name: '政策法规' },
+        { index: 'keXieXiangMu', name: '科协项目' },
+        { index: 'xueShuJiaoLiu', name: '学术交流' },
+        { index: 'banShiZhiNan', name: '办事指南' },
+        { index: 'kePu', name: '科普风采' },
+        { index: 'xueXiaoShouYe', name: '学校首页' },
+        { index: 'telephone', name: '联系我们' }
       ]
     }
   },
-  created(){
-  },
-  mounted(){
-    
-  },
-  watch:{
-
-  },
+  created() {},
+  mounted() {},
+  watch: {},
   methods: {
     handleSelect(key, keyPath) {
-      // console.log(key, keyPath)
-      this.$router.push({
-        path: '/home/' + key,
-        query:{
-          title:key
-        }
-      })
+      console.log(key, keyPath)
+      if (key == 'xueXiaoShouYe') {
+        window.location.href = 'https://www.pdsu.edu.cn/#'
+      } else {
+        this.$router.push({
+          path: '/home/' + key,
+          query: {
+            title: key
+          }
+        })
+      }
     }
   }
 }
@@ -126,7 +125,7 @@ export default {
   text-align: center;
   line-height: 60px;
 }
-.box{
+.box {
   width: 1200px;
   margin: 0 auto;
 }
