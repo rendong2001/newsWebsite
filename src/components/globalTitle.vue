@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <div class="fl">
-        <span>{{ getTitle(this.$route.query.title) }}</span>
+        <span><b>{{ getTitle(this.$route.query.title) }}</b></span>
       </div>
       <div class="fr">
         <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -48,3 +48,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .el-row {
+    /* background-color: rgb(83, 168, 125); */
+    border-bottom: 1px solid #0f99e9;
+  }
+</style>
