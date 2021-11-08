@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row type="flex" justify="space-between" class="underline">
-      <span>工作动态</span>
+      <span class="color"><b>工作动态</b></span>
       <span @click="goMore('工作状态')" class="liPointer">更多<i class="el-icon-d-arrow-right"></i> </span>
     </el-row>
     <div>

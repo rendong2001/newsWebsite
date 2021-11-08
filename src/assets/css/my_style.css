@@ -2,6 +2,9 @@ ul{
   padding: 0;
   margin: 0;
 }
+li{
+  list-style: none;
+}
 .ft-20{
   font-size: 20px;
 }
@@ -44,4 +47,12 @@ ul{
 }
 .liStylenone {
   list-style: none;
+}
+/* 链接去除下划线 */
+.anone {
+  text-decoration: none;
+}
+/* 蓝色标题 */
+.color {
+  color: #0f99e9;
 }

@@ -55,10 +55,9 @@ export default {
 <style lang="less" scoped>
 
 ul {
-  // background-color: rgb(242, 243, 245 );
   width: 200px;
   li {
-    background-color: rgb(242, 243, 245 );
+    background-color: rgb(242, 243, 245);
     height: 50px;
     line-height: 50px;
     text-align: center;

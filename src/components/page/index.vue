@@ -2,21 +2,15 @@
   <div calss="box">
     <!-- 首页上半部分 -->
     <el-row type="flex" class="row-bg" justify="space-between">
-      <el-aside width="600px">
-        <div class="block">
-          <el-carousel height="350px" type="card">
-            <el-carousel-item v-for="item in 4" :key="item">
-              <h3 class="small"></h3>
+        <div class="block marr10">
+          <el-carousel height="460px"  arrow="always">
+            <el-carousel-item v-for="(item,index) in imgList" :key="index">
               <div>
-                <img src="../../assets/boer.jpg" alt="">
-                <img src="../../assets/boer2.jpg" alt="">
-                <img src="../../assets/boer.jpg" alt="">
-                <img src="../../assets/boer2.jpg" alt="">
+                <img :src="item.path"  alt="" style="width:105%;">
               </div>
             </el-carousel-item>
           </el-carousel>
         </div>
-      </el-aside>
       <notice class="notice" />
     </el-row>
     <!-- 首页下半部分 -->
@@ -35,7 +29,16 @@ import other from '../../views/other.vue'
 
 export default {
   components: { notice, work, school, other },
-  name: 'index'
+  name: 'index',
+  data(){
+    return{
+      imgList:[
+        { path:require('../../assets/boer.jpg'),index: 1},
+        { path:require('../../assets/boer2.jpg'),index: 2},
+        { path:require('../../assets/boer.jpg'),index: 3},
+      ]
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -69,7 +72,7 @@ export default {
   }
 }
 
-.el-carousel__item h3 {
+.el-carousel__item{
   color: #475669;
   font-size: 14px;
   opacity: 0.75;
@@ -84,11 +87,14 @@ export default {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
+.block {
+  width: 50%;
+}
 .block div {
   img {
     width: 100%;
     height: 100%;
-    object-fit:cover;
+    // object-fit:cover;
   }
 }
 .notice{

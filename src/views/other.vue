@@ -1,13 +1,22 @@
 <template>
   <div>
     <div>
-      <span>友情链接</span>
+      <el-row class="underline marb10">
+        <span class="color"><b>友情链接</b></span>
+      </el-row>
       <div>
-        <ul>
-          <li class="lieBiao liPointer" :key="index" v-for="(item, index) in lianJieList">
-            {{ item.name }}
-          </li>
-        </ul>
+        <div class="aLianJ marb10">
+          <a href="https://www.cast.org.cn/" class="anone" target="_block">中国科协</a>
+        </div>
+        <div class="aLianJ marb10">
+          <a href="http://www.kepu.gov.cn/kejiweek/" class="anone" target="_block">中国科普网</a>
+        </div>
+        <div class="aLianJ marb10">
+          <a href="https://www.hast.net.cn/" class="anone" target="_block">河南省科协</a>
+        </div>
+        <div class="aLianJ marb10">
+          <a href="http://www.pdskx.cn/" class="anone" target="_block">平顶山市科协</a>
+        </div>
       </div>
     </div>
     <div>
@@ -32,21 +41,17 @@ export default {
   name: 'other',
   data() {
     return {
-      lianJieList: [{ name: '链接1' }, { name: '链接2' }, { name: '链接3' }]
+      lianJieList: [{ name: '链接1' }, { name: '链接2' }]
     }
   }
 }
 </script>
 <style lang="less" scoped>
-ul {
-  padding-left: 0;
-}
-.lieBiao {
-  width: 90%;
+.aLianJ {
   height: 30px;
-  background-color: rgb(39, 144, 214);
-  list-style: none;
-  margin-bottom: 2px;
+  background-color: rgb(242, 243, 244);
+  text-align: center;
+  line-height: 30px;
 }
 .bg {
   background-color: rgb(1, 72, 153) !important;
