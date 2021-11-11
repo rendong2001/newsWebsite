@@ -5,7 +5,9 @@
       <div>
         <img src="../assets/xiaohui4.png" alt="" />
       </div>
-      <div class="bg"></div>
+      <div>
+        <img src="../assets/bg.png" alt="">
+      </div>
     </el-header>
     <!-- 主页导航栏 -->
     <el-row>
@@ -82,25 +84,15 @@ export default {
   height: 100%;
 }
 .el-header {
-  background: -webkit-linear-gradient(
-    left,
-    rgb(5, 102, 141),
-    rgb(240, 243, 189)
-  );
-
-  background: -o-linear-gradient(right, rgb(5, 102, 141), rgb(240, 243, 189));
-
-  background: -moz-linear-gradient(right, rgb(5, 102, 141), rgb(240, 243, 189));
-
-  background: linear-gradient(to right, rgb(5, 102, 141), rgb(240, 243, 189));
+  background-color: rgb(1, 72, 153);
 }
 .el-header {
-  height: 93px !important;
+  height: 120px !important;
+  padding: 0 40px;
   overflow: hidden;
-  div {
-    display: flex;
-    justify-content: left;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .el-menu {
   .el-menu-item {
