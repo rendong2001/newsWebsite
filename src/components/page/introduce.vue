@@ -4,27 +4,52 @@
       <globalTitle />
     </el-row>
     <el-row class="mart10">
-     <el-col :span="4" class="marr10">
-       <ul>
-        <li
-          v-for="(item, index) in menuList"
-          :key="index"
-          class="liStylenone liPointer marb10"
-          @click="changeMenu(item.name)"
-        >
-          <b :class="cont == item.name?'ft-blue':'ft-black'">{{ item.name }}</b>
-        </li>
-      </ul>
-     </el-col>
-    <el-col :span="18">
-      <div v-html="cont"></div>
-    </el-col>
+      <!-- 小标题 -->
+      <el-col :span="4" class="marr10">
+        <ul>
+          <li
+            v-for="(item, index) in menuList"
+            :key="index"
+            class="liStylenone liPointer marb10"
+            @click="changeMenu(item)"
+          >
+            <b :class="cont == item.categoryName ? 'ft-blue' : 'ft-black'">{{
+              item.categoryName
+            }}</b>
+          </li>
+        </ul>
+      </el-col>
+      <el-card class="box-card">
+        <el-col :span="18">
+          <div>
+            <el-row
+              class="marb10"
+              :key="index"
+              v-for="(item, index) in newsList"
+            >
+              {{ item.title }}
+            </el-row>
+          </div>
+          <!-- 分页 -->
+          <div>
+            <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage"
+              :page-size="20"
+              layout="total, pager, next"
+              :total="total"
+            >
+            </el-pagination>
+          </div>
+        </el-col>
+      </el-card>
     </el-row>
   </div>
 </template>
 
 <script>
 import globalTitle from '../globalTitle.vue'
+import { getMinTitle, getNewsList } from '../../api/api'
 export default {
   name: 'introduce',
   components: {
@@ -32,28 +57,69 @@ export default {
   },
   data() {
     return {
-      cont:'',
-      menuList: [
-        { name: '简介' },
-        { name: '章程' },
-        { name: '组织机构' },
-        { name: '工作职责' },
-        { name: '专职人员' }
-      ]
+      cont: '',
+      menuList: [],
+      newsList: [],
+      total: 0,
+      currentPage: 1
     }
   },
-  mounted(){
-    this.cont = this.menuList[0].name;
+  created() {
+    this.getMinTitleList()
   },
-  methods:{
-    changeMenu(val){
-      this.cont = val;
+  mounted() {},
+  watch: {
+    menuList(newval, oldval) {
+      this.getAllNewsList(this.menuList[0])
+      this.cont = this.menuList[0].categoryName
+    }
+  },
+  methods: {
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
     },
+    changeMenu(val) {
+      this.getAllNewsList(val)
+      this.cont = val.categoryName
+    },
+    getMinTitleList() {
+      const data = {
+        contypeId: this.$route.query.id,
+        p: 1
+      }
+      getMinTitle(data)
+        .then((res) => {
+          console.log('res', res)
+          if (res.code == 200) {
+            this.menuList = res.data.records
+          }
+        })
+        .catch((err) => {
+          console.log('err', err)
+        })
+    },
+    getAllNewsList(item) {
+      const data = {
+        categoryId: item.id,
+        contypeId: item.contypeId,
+        p: this.currentPage
+      }
+      getNewsList(data)
+        .then((res) => {
+          console.log('res', res)
+          if (res.code == 200) {
+            this.newsList = res.data.records
+            this.total = Number(res.data.total)
+          }
+        })
+        .catch((err) => {
+          console.log('err', err)
+        })
+    }
   }
 }
 </script>
 <style lang="less" scoped>
-
 ul {
   width: 200px;
   li {
@@ -63,10 +129,10 @@ ul {
     text-align: center;
   }
 }
-.ft-blue{
-  color:rgb(9, 143, 252);
+.ft-blue {
+  color: rgb(9, 143, 252);
 }
-.ft-black{
+.ft-black {
   color: #000;
 }
 </style>

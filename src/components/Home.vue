@@ -23,9 +23,9 @@
         <el-menu-item
           :key="index"
           v-for="(item, index) in menuList"
-          :index="item.index"
+          :index="(item.id).toString()"
         >
-          {{ item.name }}
+          {{ item.contypeName }}
         </el-menu-item>
       </el-menu>
     </el-row>
@@ -40,37 +40,65 @@
 </template>
 
 <script>
+import {getNavList} from '../api/api'
 export default {
   name: '',
   data() {
     return {
-      activeIndex: 'index',
-      menuList: [
-        { index: 'index', name: '首页' },
-        { index: 'introduce', name: '科协概况' },
-        { index: 'zhengce', name: '政策法规' },
-        { index: 'keXieXiangMu', name: '科协项目' },
-        { index: 'xueShuJiaoLiu', name: '学术交流' },
-        { index: 'banShiZhiNan', name: '办事指南' },
-        { index: 'kePu', name: '科普风采' },
-        { index: 'xueXiaoShouYe', name: '学校首页' },
-        { index: 'telephone', name: '联系我们' }
-      ]
+      activeIndex: '1',
+      menuList: [],
     }
   },
-  created() {},
+  created() {
+    this.getNavArr();
+  },
   mounted() {},
   watch: {},
   methods: {
+    //获取导航栏
+    getNavArr(){
+      const data ={};
+      //.then() 主要用于一个函数用到另一个函数的返回值
+      getNavList(data).then(res => {
+        console.log('res', res)
+        if(res.code == 200){
+          this.menuList = res.data
+        }
+      }).catch(err => {
+        console.log('err', err)
+      })
+    },
+    formatterTitle(t){
+      switch(t){
+        case '1':
+          return 'index'
+        case '2':
+          return 'introduce'
+        case '3':
+          return 'zhengce'
+        case '4':
+          return 'keXieXiangMu'
+        case '5':
+          return 'xueShuJiaoLiu'
+        case '6':
+          return 'banShiZhiNan'
+        case '7':
+          return 'kePu'
+        case '8':
+          return 'xueXiaoShouYe'
+        case '9':
+          return 'telephone'
+      }
+    },
     handleSelect(key, keyPath) {
-      console.log(key, keyPath)
-      if (key == 'xueXiaoShouYe') {
-        window.location.href = 'https://www.pdsu.edu.cn/#'
+      if (key == '8') {
+        window.open('https://www.pdsu.edu.cn/#')
       } else {
         this.$router.push({
-          path: '/home/' + key,
+          path: '/home/' + this.formatterTitle(key),
           query: {
-            title: key
+            title: this.formatterTitle(key),
+            id:key
           }
         })
       }
