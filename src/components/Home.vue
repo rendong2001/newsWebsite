@@ -116,7 +116,7 @@ export default {
 }
 .el-header {
   height: 120px !important;
-  padding: 0 40px;
+  padding: 0 80px 0 120px;
   overflow: hidden;
   display: flex;
   justify-content: space-between;

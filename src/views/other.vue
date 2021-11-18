@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <el-row class="underline marb10">
+      <el-row class="underline marb20">
         <span class="color"><b>友情链接</b></span>
       </el-row>
       <div>
@@ -17,9 +17,18 @@
         <div class="aLianJ marb10">
           <a href="http://www.pdskx.cn/" class="anone" target="_block">平顶山市科协</a>
         </div>
+        <div class="aLianJ marb10">
+          <a href="#" class="anone" target="_block">平顶山市公安局</a>
+        </div>
+        <div class="aLianJ marb10">
+          <a href="#" class="anone" target="_block">平顶山市消防局</a>
+        </div>
+        <div class="aLianJ marb10">
+          <a href="#" class="anone" target="_block">平顶山市教育局</a>
+        </div>
       </div>
     </div>
-    <div>
+    <!-- <div>
       <span>联系我们</span>
       <div>
         <div class="bg">
@@ -33,7 +42,7 @@
           <a href="https://www.pdsu.edu.cn/#"> <img src="../assets/weiBo.jpg" alt="" /> </a>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

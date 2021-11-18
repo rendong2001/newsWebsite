@@ -19,6 +19,14 @@
       <school class="school"/>
       <other class="other"/>
     </el-row>
+
+    <!-- 定位fixed -->
+    <div class="fixed1">
+      <a href="#"><img src="../../assets/gzh.jpg" alt=""></a>
+    </div>
+    <div class="fixed2">
+      <a href="#"><img src="../../assets/wb.jpg" alt=""></a>
+    </div>
   </div>
 </template>
 <script>
@@ -33,9 +41,9 @@ export default {
   data(){
     return{
       imgList:[
-        { path:require('../../assets/boer.jpg'),index: 1},
-        { path:require('../../assets/boer2.jpg'),index: 2},
-        { path:require('../../assets/boer.jpg'),index: 3},
+        { path:require('../../assets/1.jpg'),index: 1},
+        { path:require('../../assets/2.jpg'),index: 2},
+        { path:require('../../assets/3.jpg'),index: 3},
       ]
     }
   }
@@ -65,5 +73,15 @@ export default {
 .other {
   width: 20%;
   margin-left: 5px;
+}
+.fixed1 {
+  position: fixed;
+  top:270px;
+  right: 2px;
+}
+.fixed2 {
+  position: fixed;
+  top:340px;
+  right: 2px;
 }
 </style>

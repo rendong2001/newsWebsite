@@ -23,6 +23,9 @@ li{
 .marb10{
   margin-bottom: 10px !important;
 }
+.marb20{
+  margin-bottom: 20px !important;
+}
 .padt10{
   padding-top:10px !important;
 }
@@ -54,5 +57,5 @@ li{
 }
 /* 蓝色标题 */
 .color {
-  color: #0f99e9;
+  color: rgb(0, 110, 215);
 }
