@@ -19,6 +19,7 @@
           </li>
         </ul>
       </el-col>
+       <!-- 新闻内容 -->
       <el-card class="box-card">
         <el-col :span="18">
           <div>
