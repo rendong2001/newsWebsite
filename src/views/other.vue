@@ -56,6 +56,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.underline {
+  border-bottom: 1px solid rgb(1, 72, 153);
+}
 .aLianJ {
   height: 30px;
   background-color: rgb(242, 243, 244);

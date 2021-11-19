@@ -37,7 +37,7 @@ export default {
           return '学术交流'
         case 'banShiZhiNan':
           return '办事指南'
-        case 'kePu':
+        case 'kePuFengCai':
           return '科普风采'
         case 'xueXiaoShouYe':
           return '学校首页'

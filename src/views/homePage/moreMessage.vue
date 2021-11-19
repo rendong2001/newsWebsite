@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="underline">
-      <h3 style="color: #0f99e9">{{ this.$route.query.type }}</h3>
+      <h3 style="color: rgb(1, 72, 153)">{{ this.$route.query.type }}</h3>
     </el-row>
     <div class="mart15">
       <div v-if="this.$route.query.type == '通知公告'">

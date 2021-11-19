@@ -1,25 +1,40 @@
 <template>
   <div>
-    <span>noticeMessage</span>
-    <p>{{ this.$route.query.title }}</p>
-    <div v-html="message"></div>
+    <el-row>
+      <globalTitle />
+    </el-row>
+
+    <div>
+      <el-tabs :tab-position="tabPosition" >
+        <el-tab-pane label="平顶山学院科普风采">
+          <div v-html="message"></div>
+        </el-tab-pane>
+        <el-tab-pane label="平顶山市政协科普活动"
+          ><div v-html="message2"></div></el-tab-pane
+        >
+      </el-tabs>
+    </div>
   </div>
 </template>
 <script>
+import globalTitle from '../globalTitle.vue'
 export default {
-  name:'noticeMessage',
-  data(){
+  name: 'kePuFengCai',
+  components: {
+    globalTitle
+  },
+  data() {
     return {
-      message:''
+      tabPosition: 'left'
     }
   },
   created(){
-    console.log(">>>>>>>>",this.$route.query.title);
     this.queryAll();
   },
   methods:{
     queryAll(){
-      this.message = `<div id="vsb_content_7" class="content-con"><div class="v_news_content">
+      this.message = `<div class="detail_wbtext_4CRf9"><a href="//s.weibo.com/weibo?q=%23%E5%88%9B%E6%96%87%E5%BC%80%E5%B0%81%E5%85%A8%E6%B0%91%E6%80%BB%E5%8A%A8%E5%91%98%23" target="_blank">#创文开封全民总动员#</a>【 “创文”标识牌亮街头 传递文明正能量】11月3日，记者在街头看到，大梁路新增一处“创文”标识牌，新颖的造型和绚丽的色彩引人注目，让市民感受到文明风尚的热潮，并时刻提醒着大家要注重文明行为，文明就在你我身边。（全媒体记者：姜菡 ）<a href="//s.weibo.com/weibo?q=%23%E5%BC%80%E5%B0%81%E5%BC%80%E5%B0%81%E5%BC%80%E8%B7%AF%E5%85%88%E9%94%8B%23" target="_blank">#开封开封开路先锋#</a> ​​​</div>`
+      this.message2 = `<div id="vsb_content_7" class="content-con"><div class="v_news_content">
 <p class="vsbcontent_start">校属各单位：</p>
 <p>为做好国家自科基金项目的申报工作，实现国家自科基金项目申报数量、质量及立项率的突破和提升，现启动我校2022年度国家自科基金项目三级论证工作，现将有关事项安排如下：</p>
 <p><strong>一、申报工作重点</strong></p>
@@ -54,6 +69,5 @@ export default {
   }
 }
 </script>
-<style>
-
+<style lang="less" scoped>
 </style>

@@ -83,7 +83,7 @@ export default {
         case '6':
           return 'banShiZhiNan'
         case '7':
-          return 'kePu'
+          return 'kePuFengCai'
         case '8':
           return 'xueXiaoShouYe'
         case '9':

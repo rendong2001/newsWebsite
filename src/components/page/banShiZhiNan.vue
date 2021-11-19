@@ -1,6 +1,9 @@
 <template>
   <div>
     <globalTitle />
+    <div>
+      <img src="../../assets/keyanlixiangjieti.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -8,8 +11,9 @@
 import globalTitle from '../globalTitle.vue'
 export default {
   components: { globalTitle},
-  name: 'banShiZhiNan'
+  name: 'banShiZhiNan',
 }
+
 </script>
 
 <style lang="less" scoped>

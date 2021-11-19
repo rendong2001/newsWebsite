@@ -8,7 +8,7 @@ import zhengce from './components/page/zhengce.vue'
 import keXieXiangMu from './components/page/keXieXiangMu.vue'
 import xueShuJiaoLiu from './components/page/xueShuJiaoLiu.vue'
 import banShiZhiNan from './components/page/banShiZhiNan.vue'
-import kePu from './components/page/kePu.vue'
+import kePuFengCai from './components/page/kePuFengCai.vue'
 import xueXiaoShouYe from './components/page/xueXiaoShouYe.vue'
 import telephone from './components/page/telephone.vue'
 import schoolMessage from './views/homePage/schoolMessage'
@@ -21,7 +21,7 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [
-    { path: '/', redirect: '/login' },
+    { path: '/', redirect: '/home' },
     { path: '/login', component: Login },
     { 
       path: '/home', 
@@ -61,9 +61,9 @@ const router = new Router({
           component:banShiZhiNan
         },
         {
-          path:'kePu',
-          name:'kePu',
-          component:kePu
+          path:'kePuFengCai',
+          name:'kePuFengCai',
+          component:kePuFengCai
         },
         {
           path:'xueXiaoShouYe',

@@ -7,7 +7,7 @@
     <div>
       <ul>
         <li :key="index" v-for="(item, index) in workList" class="liPointer">
-          <div @click="toWorkMsg(item.title)"> {{ item.title }} </div>
+          <div @click="toWorkMsg(item.title)" class="bgc mart10"> {{ item.title }} </div>
         </li>
       </ul>
     </div>
@@ -19,12 +19,12 @@ export default {
   data(){
     return{
       workList: [
-        { id:'1', title: '工作状态1' },
-        { id:'2', title: '工作状态2' },
-        { id:'3', title: '工作状态3' },
-        { id:'4', title: '工作状态4' },
-        { id:'5', title: '工作状态5' },
-        { id:'6', title: '工作状态6' },
+        { id:'1', title: '关于做好2022年度国家自科基金项目三级论证工作的通知' },
+        { id:'2', title: '关于组织申报河南省绿色技术创新示范基地的通知' },
+        { id:'3', title: '关于做好2022年度国家社科基金项目三级论证工作的通知' },
+        { id:'4', title: '关于组织申报河南省科协2022年度河南科技智库调研课题的通知' },
+        { id:'5', title: '关于组织申报首批河南科技智库研究基地的通知' },
+        { id:'6', title: '关于申报河南省超声技术应用工程研究中心2021年度开放基金.....' },
       ]
     }
   },
@@ -50,7 +50,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .underline {
-  border-bottom: 1px solid rgb(0, 110, 215);
+  border-bottom: 1px solid rgb(1, 72, 153);
 }
 ul {
   padding-left: 0;
@@ -62,5 +62,10 @@ li {
 }
 a {
   text-decoration: none;
+}
+.bgc {
+  background: rgb(241, 241, 241);
+  height: 55px;
+  line-height: 55px;
 }
 </style>
