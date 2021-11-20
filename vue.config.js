@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 module.exports = {
+  publicPath:'./',
   configureWebpack: {
     devServer: {
       proxy: {
