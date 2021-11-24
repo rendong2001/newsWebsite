@@ -2,35 +2,53 @@
   <div>
     <el-row type="flex" justify="space-between" class="underline">
       <span class="color"><b>学院动态</b></span>
-      <span @click="goMore('学院动态')" class="liPointer">更多<i class="el-icon-d-arrow-right"></i> </span>
+      <span @click="goMore('学院动态')" class="liPointer"
+        >更多<i class="el-icon-d-arrow-right"></i>
+      </span>
     </el-row>
-    <div>
+    <div style="max-height:420px;overflow:hidden;">
       <ul>
         <li :key="index" v-for="(item, index) in schoolList" class="liPointer">
           <!-- <a href="item.path"> {{ item.title }} </a> -->
           <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
-          <div @click="toSchoolMsg(item.title)" class="bgc mart10"> {{ item.title }} </div>
+          <div @click="toSchoolMsg(item.title)" class="bgc mart10">
+            {{ item.title }}
+          </div>
         </li>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import {getNewsList} from '../api/api'
 export default {
   name: 'school',
   data() {
     return {
       schoolList: [
-        { id: '1',title: '河南省生态经济型木本植物种质创新与利用重点实验室建设项目' },
-        { id: '2',title: '平顶山学院智慧校园软件及实验室管理平台二期' },
-        { id: '3',title: '平顶山学院新工科实训楼和产教融合实训楼全过程跟踪审计服务' },
-        { id: '4',title: '平顶山学院智慧校园综合业务服务系统（一期）' },
-        { id: '5',title: '平顶山学院2021-2022第二学期医用低值易耗品采购项目公告' },
-        { id: '6',title: '平顶山学院软件实验室硬盘采购项目竞争性谈判公告' }
       ]
     }
   },
+  created() {
+    this.getnews()
+  },
   methods:{
+    getnews(){
+      const data = {
+        categoryId: 1,
+        contypeId: 2,
+        p: 0
+    }
+      getNewsList(data).then(res => {
+        console.log('res',res);
+        if(res.code == 200){
+          this.schoolList = res.data.records
+        }
+      }).catch(err => {
+        console.log('err',err);
+      })
+    },
+    //前往更多信息页面
     goMore(val){
       this.$router.push({
         path:'moreMessage',
@@ -39,6 +57,7 @@ export default {
         }
       })
     },
+    //前往信息展示页面
     toSchoolMsg(t) {
       this.$router.push({
         path: 'schoolMessage',

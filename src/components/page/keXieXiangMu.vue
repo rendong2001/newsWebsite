@@ -1,7 +1,7 @@
 <template>
   <div>
     <globalTitle />
-    <div >
+    <div>
       <!-- 项目展示区 -->
       <el-table :data="tableData" style="width: 100%" border stripe>
         <el-table-column

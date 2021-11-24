@@ -1,12 +1,14 @@
 <template>
   <div>
+    <!-- 通知公告导航条 -->
     <el-row type="flex" class="row-bg underline marb10" justify="space-between">
       <span class="color"><b>通知公告</b></span>
       <span @click="goMore('通知公告')" class="liPointer">
         更多<i class="el-icon-d-arrow-right"></i>
       </span>
     </el-row>
-    <div>
+    <!-- 通知公告新闻列表 -->
+    <div style="max-height:382px;overflow:hidden;">
       <ul>
         <li
           class="lieBiao liPointer"
@@ -14,14 +16,11 @@
           v-for="(item, index) in noticeList"
         >
           <div class="time">
-            <!-- <span>{{ item.categoryId }}</span>
-            <span>{{ item.contypeId }}</span> -->
-
-            <span>{{ item.years }}</span>
-            <span>{{ item.date }}</span>
+            <span>{{ item.contypeId }}</span>
+            <span>{{ item.categoryId }}</span>
           </div>
-          <div class="title" @click="toNoticeMsg(item.title)">
-            {{ item.title }}
+          <div class="title" @click="toNoticeMsg(item.title,item.id)">
+            {{ item.dataString }}
           </div>
         </li>
       </ul>
@@ -29,43 +28,46 @@
   </div>
 </template>
 <script>
+import {getNewsList} from '../api/api'
 export default {
   name: 'notice',
   data() {
     return {
       noticeList: [
-        {years:'2021',date:'11-17',title:'平顶山学院高层次人才招聘公告'},
-        {years:'2021',date:'11-17',title:'关于开展“我为学校‘十四五’规划建言献策”活动的通知'},
-        {years:'2021',date:'11-17',title:'平顶山学院及附属口腔医院招聘口腔医学专业人才公告'},
-        {years:'2021',date:'11-17',title:'平顶山学院2020-2021学年本科教学质量报告'},
-        {years:'2021',date:'11-17',title:'关于推荐全省高校学生工作专家库专家的通知'},
-        {years:'2021',date:'11-17',title:'平顶山学院2022届毕业生冬季网络视频双选会邀请函'},
       ]
-
-      // {
-      //   categoryId: 1,
-      //   contypeId: 2,
-      //   coverPath: '13',
-      //   dataString: '123',
-      //   title:"12"
-      // }
     }
   },
   created() {
-    // getnews() {
-    //   const res = this.$http.post('newsTheme/insert',this.noticeList)
-    //   console.log(res);
-    // }
+    this.getnews();
   },
   methods: {
-    toNoticeMsg(t) {
+    //获取新闻列表
+    getnews() {
+      const data = {
+        categoryId: 1,//小标题ID
+        contypeId: 2,//大标题ID
+        p: 0//当前页
+      };
+      getNewsList(data).then(res => {
+        console.log('res',res);
+        if(res.code == 200){
+          this.noticeList = res.data.records
+        }
+      }).catch(err => {
+        console.log('err',err);
+      })
+    },
+    // 去到新闻展示页
+    toNoticeMsg(t,id) {
       this.$router.push({
         path: '/home/noticeMessage',
         query: {
-          title: t
+          title: t,
+          id:id
         }
       })
     },
+    //去到更多新闻列表页
     goMore(val) {
       this.$router.push({
         path: '/home/moreMessage',
@@ -96,7 +98,7 @@ export default {
   display: flex;
   // line-height: 20px;
   flex-direction: column;
-  padding: 8px ;
+  padding: 8px;
   background-color: rgb(1, 72, 153);
   color: white;
   text-align: center;

@@ -1,68 +1,141 @@
 <template>
   <div>
-    <globalTitle />
-  
-    <el-tabs :tab-position="tabPosition" style="height: 400px; width=500px">
-      <el-tab-pane label="学术信息">
-        <template>
-          <el-table :data="xueshuData" style="width: 100%">
-            <el-table-column prop="date" label="学术信息" width="">
-            </el-table-column>
-          </el-table>
-        </template>
-      </el-tab-pane>
-      <el-tab-pane label="科技竞赛">
-        <template>
-          <el-table :data="kejiData" style="width: 100%">
-            <el-table-column prop="date" label="科技竞赛" width="">
-            </el-table-column>
-          </el-table>
-        </template>
-      </el-tab-pane>
-    </el-tabs>
+    <el-row>
+      <globalTitle />
+    </el-row>
+    <el-row class="mart10">
+      <!-- 小标题 -->
+      <el-col :span="4" class="marr10">
+        <ul>
+          <li
+            v-for="(item, index) in menuList"
+            :key="index"
+            class="liStylenone liPointer marb10"
+            @click="changeMenu(item)"
+          >
+            <b :class="cont == item.categoryName ? 'ft-blue' : 'ft-black'">{{
+              item.categoryName
+            }}</b>
+          </li>
+        </ul>
+      </el-col>
+       <!-- 新闻内容 -->
+      <el-card class="box-card">
+        <el-col :span="18">
+          <div>
+            <el-row
+              class="marb10"
+              :key="index"
+              v-for="(item, index) in newsList"
+            >
+              {{ item.title }}
+            </el-row>
+          </div>
+          <!-- 分页 -->
+          <div>
+            <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage"
+              :page-size="20"
+              layout="total, pager, next"
+              :total="total"
+            >
+            </el-pagination>
+          </div>
+        </el-col>
+      </el-card>
+    </el-row>
   </div>
 </template>
 
 <script>
 import globalTitle from '../globalTitle.vue'
+import { getMinTitle, getNewsList } from '../../api/api'
 export default {
   components: { globalTitle },
   name: 'xueShuJiaoLiu',
   data() {
     return {
-      tabPosition: 'left',
-      xueshuData: [
-        {
-          date: '市政协副主席王著一行来我校考察调研',
-        },
-        {
-          date: '郑州大学博士生导师刘志伟教授来我校讲学',
-        },
-        {
-          date: '南京大学博士生导师翟国方教授来我校讲学',
-        },
-        {
-          date: '华中科技大学博士生导师徐晓林受聘我校特聘教授',
-        }
-      ],
-      kejiData: [
-        {
-          date: '我校鲲鹏产业学院在河南省鲲鹏产业学院建设考核中获得优秀',
-        },
-        {
-          date: '2021级临床医学本科生学业导师及班主任聘任仪式举行',
-        },
-        {
-          date: '我校第十一次学生代表大会举行',
-        },
-        {
-          date: '河南省高等教育外事工作业务培训会在我校召开',
-        }
-      ]
+      cont: '',
+      menuList: [],
+      newsList: [],
+      total: 0,
+      currentPage: 1
+    }
+  },
+  created() {
+    this.getMinTitleList()
+  },
+  mounted() {},
+  watch: {
+    menuList(newval, oldval) {
+      this.getAllNewsList(this.menuList[0])
+      this.cont = this.menuList[0].categoryName
+    }
+  },
+  methods: {
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+    },
+    //改变 小标题获取不同的新闻内容
+    changeMenu(val) {
+      this.getAllNewsList(val)
+      this.cont = val.categoryName
+    },
+    //获取小标题列表
+    getMinTitleList() {
+      const data = {
+        contypeId: this.$route.query.id,
+        p: 1
+      }
+      getMinTitle(data)
+        .then((res) => {
+          console.log('res', res)
+          if (res.code == 200) {
+            this.menuList = res.data.records
+          }
+        })
+        .catch((err) => {
+          console.log('err', err)
+        })
+    },
+    //获取新闻列表
+    getAllNewsList(item) {
+      const data = {
+        categoryId: item.id,
+        contypeId: item.contypeId,
+        p: this.currentPage
+      }
+      getNewsList(data)
+        .then((res) => {
+          console.log('res', res)
+          if (res.code == 200) {
+            this.newsList = res.data.records
+            this.total = Number(res.data.total)
+          }
+        })
+        .catch((err) => {
+          console.log('err', err)
+        })
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+ul {
+  width: 200px;
+  li {
+    background-color: rgb(242, 243, 245);
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+}
+.ft-blue {
+  color: rgb(9, 143, 252);
+}
+.ft-black {
+  color: #000;
+}
 </style>

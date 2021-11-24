@@ -3,21 +3,53 @@
     <el-row>
       <globalTitle />
     </el-row>
-
-    <div>
-      <el-tabs :tab-position="tabPosition" >
-        <el-tab-pane label="平顶山学院科普风采">
-          <div v-html="message"></div>
-        </el-tab-pane>
-        <el-tab-pane label="平顶山市政协科普活动"
-          ><div v-html="message2"></div></el-tab-pane
-        >
-      </el-tabs>
-    </div>
+    <el-row class="mart10">
+      <!-- 小标题 -->
+      <el-col :span="4" class="marr10">
+        <ul>
+          <li
+            v-for="(item, index) in menuList"
+            :key="index"
+            class="liStylenone liPointer marb10"
+            @click="changeMenu(item)"
+          >
+            <b :class="cont == item.categoryName ? 'ft-blue' : 'ft-black'">{{
+              item.categoryName
+            }}</b>
+          </li>
+        </ul>
+      </el-col>
+       <!-- 新闻内容 -->
+      <el-card class="box-card">
+        <el-col :span="18">
+          <div>
+            <el-row
+              class="marb10"
+              :key="index"
+              v-for="(item, index) in newsList"
+            >
+              {{ item.title }}
+            </el-row>
+          </div>
+          <!-- 分页 -->
+          <div>
+            <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage"
+              :page-size="20"
+              layout="total, pager, next"
+              :total="total"
+            >
+            </el-pagination>
+          </div>
+        </el-col>
+      </el-card>
+    </el-row>
   </div>
 </template>
 <script>
 import globalTitle from '../globalTitle.vue'
+import { getMinTitle, getNewsList } from '../../api/api'
 export default {
   name: 'kePuFengCai',
   components: {
@@ -25,49 +57,82 @@ export default {
   },
   data() {
     return {
-      tabPosition: 'left'
+      cont: '',
+      menuList: [],
+      newsList: [],
+      total: 0,
+      currentPage: 1
     }
   },
-  created(){
-    this.queryAll();
+  created() {
+    this.getMinTitleList()
   },
-  methods:{
-    queryAll(){
-      this.message = `<div class="detail_wbtext_4CRf9"><a href="//s.weibo.com/weibo?q=%23%E5%88%9B%E6%96%87%E5%BC%80%E5%B0%81%E5%85%A8%E6%B0%91%E6%80%BB%E5%8A%A8%E5%91%98%23" target="_blank">#创文开封全民总动员#</a>【 “创文”标识牌亮街头 传递文明正能量】11月3日，记者在街头看到，大梁路新增一处“创文”标识牌，新颖的造型和绚丽的色彩引人注目，让市民感受到文明风尚的热潮，并时刻提醒着大家要注重文明行为，文明就在你我身边。（全媒体记者：姜菡 ）<a href="//s.weibo.com/weibo?q=%23%E5%BC%80%E5%B0%81%E5%BC%80%E5%B0%81%E5%BC%80%E8%B7%AF%E5%85%88%E9%94%8B%23" target="_blank">#开封开封开路先锋#</a> ​​​</div>`
-      this.message2 = `<div id="vsb_content_7" class="content-con"><div class="v_news_content">
-<p class="vsbcontent_start">校属各单位：</p>
-<p>为做好国家自科基金项目的申报工作，实现国家自科基金项目申报数量、质量及立项率的突破和提升，现启动我校2022年度国家自科基金项目三级论证工作，现将有关事项安排如下：</p>
-<p><strong>一、申报工作重点</strong></p>
-<p>1.年龄在35岁以下（男）和40岁以下（女）具有博士学位教师尚未获得国家级项目的原则上必须申报青年基金项目；其他尚未获批国家级项目的博士、副教授、教授原则上只能申报面上基金项目或联合基金项目。</p>
-<p>2.鼓励符合条件的其他教师积极申报上述项目。</p>
-<p>3.凡是通过国家基金委形式审查的项目申报书，对项目申报人予以相应的科研积分认定。</p>
-<p><strong>二</strong><strong>、项目申报书撰写</strong></p>
-<p>2021年11月25日下午4点前，各单位申报教师参照《2021年度国家自然科学基金项目课题指南》及项目申报要求，确定选题，经过课题组集中讨论，撰写申请书初稿。要求各学院于11月25日前将本单位预申报的申请书初稿和汇总表，以“学院+2022国自科基金项目材料”命名，打包发至科研处邮箱pdsukyc02@126.com，同时纸质版1份交至科研处。</p>
-<p><strong>三</strong><strong>、三级论证</strong></p>
-<p>1. 项目组内部论证（2021年11月17日—2021年12月10日）</p>
-<p>各项目组组织相关人员，对所申报基金课题初稿进行内部论证。各项目负责人根据项目组论证意见认真修改完善申请书，形成《申请书》初稿并提交《二级学院论证情况表》1份。</p>
-<p>2. 二级学院论证（2021年12月11日—2022年1月1日）</p>
-<p>各二级学院邀请不低于5名相关学科领域的校外知名基金专家进行论证，申请人向专家进行PPT汇报，根据专家提出的意见，认真修改完善，形成《申请书》二稿。各二级学院于2022年1月1日前向科研处报送纸质版《2022年度国家自科基金项目申报汇总表》（<strong>根据专家意见排序</strong>）及《二级学院论证情况表》各1份（单位盖章，负责人签字）。</p>
-<p>3. 学校论证（2022年1月2日—2022年1月15日）</p>
-<p>各二级学院于2022年1月2日前，向科研处报送<strong>纸质版《申请书》</strong><strong>5</strong><strong>份</strong><strong>，电子版发送至</strong>邮箱<strong>pdsukyc0</strong><strong>2</strong><strong>@126.com</strong>。科研处邀请校外相关专家，对申请书进行论证。申请人根据校外专家评审论证意见，充分利用寒假时间认真修改完善申请书，形成《申请书》三稿。</p>
-<p><strong>四</strong><strong>、形式审查及定稿材料报送</strong></p>
-<p>1.2022年元月中旬，自然科学基金委发布2022年最新申报指南后，申请人认真研读《2022年度国家自然科学基金项目指南》，详细了解2022年国家自然科学基金项目申报要求、政策变化及相关注意事项，并登录国家自然科学基金网络信息系统，按照各类型项目的撰写提纲及相关要求撰写申请书。</p>
-<p>2. 项目申请人务必对照《2022年基金项目申请书填写注意事项》，对申请书进行逐项审查，填写《2022年国家自然科学基金项目申请书形式审查表》，完成形式一审。</p>
-<p>3. 申请人完成申请书撰写后，在线提交电子申请书及附件材料。申请材料中所需的附件材料，全部以电子扫描件上传。</p>
-<p>4. 各单位主管负责人、教科办组织力量，根据《指南》及形式审查要求，对本单位所有国基金申请书统一进行形式二审，并填写《学院审核承诺书》和申报项目汇总表，申请人的《形式审查表》留各单位备查。各学院审核承诺书、汇总表上均需单位主管负责人签字并加盖单位公章。</p>
-<p>5. 2022年3月6日-8日各二级学院将国家自科基金项目申请书1份，主管院长签字并盖章的项目审核承诺书和项目申报汇总表1份报送科研处，科研处将统一进行形式三审。电子版个人《形式审查表》以学院为单位统一发送邮箱。</p>
-<p><strong>五、相关要求</strong></p>
-<p>1.各二级学院要高度重视。积极组织本单位教师学习《国家自然科学基金项目指南》，严格按照有关申请人的条件要求及限项要求，认真组织撰写申请书，邀请校内外专家充分论证。</p>
-<p>没有申报帐号的教职工，请及时联系科研处开通帐号。</p>
-<p>2.坚决杜绝各种科研不端行为。各项目申报人对所提交申请材料的原创性负责；不得将内容相同或相近的项目，以不同类型项目向同一科学部或不同科学部申请；不得将内容相同或相近的项目，通过不同依托单位或以不同申请人的名义提出申请；不得将已获资助项目重新申请资助。</p>
-<p>联系 人：杨锦伟 联系电话：2657757</p>
-<p>报送地点：办公楼330房间</p>
-<p style="text-align: right;">科研处（研究生工作处）</p>
-<p class="vsbcontent_end">2021年11月16日</p>
-</div></div>`
+  mounted() {},
+  watch: {
+    menuList(newval, oldval) {
+      this.getAllNewsList(this.menuList[0])
+      this.cont = this.menuList[0].categoryName
+    }
+  },
+  methods: {
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+    },
+    changeMenu(val) {
+      this.getAllNewsList(val)
+      this.cont = val.categoryName
+    },
+    getMinTitleList() {
+      const data = {
+        contypeId: this.$route.query.id,
+        p: 1
+      }
+      getMinTitle(data)
+        .then((res) => {
+          console.log('res', res)
+          if (res.code == 200) {
+            this.menuList = res.data.records
+          }
+        })
+        .catch((err) => {
+          console.log('err', err)
+        })
+    },
+    getAllNewsList(item) {
+      const data = {
+        categoryId: item.id,
+        contypeId: item.contypeId,
+        p: this.currentPage
+      }
+      getNewsList(data)
+        .then((res) => {
+          console.log('res', res)
+          if (res.code == 200) {
+            this.newsList = res.data.records
+            this.total = Number(res.data.total)
+          }
+        })
+        .catch((err) => {
+          console.log('err', err)
+        })
     }
   }
 }
 </script>
 <style lang="less" scoped>
+ul {
+  width: 200px;
+  li {
+    background-color: rgb(242, 243, 245);
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+}
+.ft-blue {
+  color: rgb(9, 143, 252);
+}
+.ft-black {
+  color: #000;
+}
 </style>
