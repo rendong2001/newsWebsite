@@ -6,36 +6,42 @@
     <div class="mart15">
       <div v-if="this.$route.query.type == '通知公告'">
         <ul>
-          <li
-            class="lieBiao flex-v flex-conter padt10 liPointer"
-            :key="index"
-            v-for="(item, index) in noticeList"
-          >
+          <li class="lieBiao flex-v flex-between" :key="index" v-for="(item, index) in noticeList">
             <div class="time">
-              <span>{{ item.date }}</span>
-              <span>{{ item.years }}</span>
+              <span>{{ item.year }}</span>
+              <span>{{ item.month }}</span>
             </div>
-            <div class="title" @click="toNoticeMsg(item.title)">
-              {{ item.title }}
+            <div class="title liPointer" @click="toNoticeMsg(item.id,item.count)">
+              {{ item.news }}
             </div>
           </li>
         </ul>
       </div>
       <div v-if="this.$route.query.type == '学院动态'">
         <ul>
-          <li :key="index" v-for="(item, index) in schoolList" class="liPointer">
+          <li class="lieBiao flex-v flex-between" :key="index" v-for="(item, index) in schoolList">
             <!-- <a href="item.path"> {{ item.title }} </a> -->
             <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
-            <div @click="toNoticeMsg(item.title)">{{ item.title }}</div>
+            <div class="time">
+              <span>{{ item.year }}</span>
+              <span>{{ item.month }}</span>
+            </div>
+            <div  class="title liPointer" @click="toSchoolMsg(item.id,item.count)">
+              {{ item.news }}
+            </div>
           </li>
         </ul>
       </div>
       <div v-if="this.$route.query.type == '工作状态'">
         <ul>
-          <li :key="index" v-for="(item, index) in workList" class="liPointer">
+          <li class="lieBiao flex-v flex-between" :key="index" v-for="(item, index) in workList">
             <!-- <a href="item.path"> {{ item.title }} </a> -->
             <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
-            <div @click="toNoticeMsg(item.title)">{{ item.title }}</div>
+            <div class="time">
+              <span>{{ item.year }}</span>
+              <span>{{ item.month }}</span>
+            </div>
+            <div class="title liPointer" @click="toWorkMsg(item.id,item.count)">{{ item.news }}</div>
           </li>
         </ul>
       </div>
@@ -47,39 +53,55 @@ export default {
   name: 'moreMessage',
   data() {
     return {
-      noticeList: [
-        { years: '2021', date: '11-2', title: '我是标题1' },
-        { years: '2021', date: '11-2', title: '我是标题2' },
-        { years: '2021', date: '11-2', title: '我是标题3' },
-        { years: '2021', date: '11-2', title: '我是标题4' },
-        { years: '2021', date: '11-2', title: '我是标题5' }
-      ],
-      schoolList: [
-        { id: '1', title: '学校状态1' },
-        { id: '2', title: '学校状态2' },
-        { id: '3', title: '学校状态3' },
-        { id: '4', title: '学校状态4' },
-        { id: '5', title: '学校状态5' },
-        { id: '6', title: '学校状态6' }
-      ],
-      workList: [
-        { id:'1', title: '工作状态1' },
-        { id:'2', title: '工作状态2' },
-        { id:'3', title: '工作状态3' },
-        { id:'4', title: '工作状态4' },
-        { id:'5', title: '工作状态5' },
-        { id:'6', title: '工作状态6' },
-      ]
+      noticeList: [{id:1,year: 2022,month:'1-10',count:10, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:2,year: 2022,month:'1-10',count:11, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:3,year: 2022,month:'1-10',count:12, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:4,year: 2022,month:'1-10',count:13, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:5,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:6,year: 2022,month:'1-10',count:15, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:17, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'}],
+      
+      schoolList: [{id:1,year: 2022,month:'1-10',count:10, news:'唐三藏参见女王陛下'},{id:2,year: 2022,month:'1-10',count:11, news:'唐三藏参见女王陛下'},
+      {id:3,year: 2022,month:'1-10',count:12, news:'唐三藏参见女王陛下'},{id:4,year: 2022,month:'1-10',count:13, news:'唐三藏参见女王陛下'},
+      {id:5,year: 2022,month:'1-10',count:14, news:'唐三藏参见女王陛下'},{id:6,year: 2022,month:'1-10',count:14, news:'唐三藏参见女王陛下'},
+      {id:6,year: 2022,month:'1-10',count:15, news:'唐三藏参见女王陛下'},{id:6,year: 2022,month:'1-10',count:16, news:'唐三藏参见女王陛下'},
+      {id:6,year: 2022,month:'1-10',count:16, news:'唐三藏参见女王陛下'},{id:6,year: 2022,month:'1-10',count:17, news:'唐三藏参见女王陛下'}],
+
+      workList: [{id:1,year: 2022,month:'1-10',count:10, news:'黑人超白竹炭深洁牙膏'},{id:2,year: 2022,month:'1-10',count:11, news:'黑人超白竹炭深洁牙膏'},
+      {id:3,year: 2022,month:'1-10',count:12, news:'黑人超白竹炭深洁牙膏'},{id:4,year: 2022,month:'1-10',count:13, news:'黑人超白竹炭深洁牙膏'},
+      {id:5,year: 2022,month:'1-10',count:14, news:'黑人超白竹炭深洁牙膏'},{id:6,year: 2022,month:'1-10',count:14, news:'黑人超白竹炭深洁牙膏'},
+      {id:6,year: 2022,month:'1-10',count:15, news:'黑人超白竹炭深洁牙膏'},{id:6,year: 2022,month:'1-10',count:16, news:'黑人超白竹炭深洁牙膏'},
+      {id:6,year: 2022,month:'1-10',count:16, news:'黑人超白竹炭深洁牙膏'},{id:6,year: 2022,month:'1-10',count:17, news:'黑人超白竹炭深洁牙膏'}],
     }
   },
   methods: {
-    toNoticeMsg(t) {
+    toNoticeMsg(id,count) {
       this.$router.push({
         path: '/home/noticeMessage',
         query: {
-          title: t
+          id: id,
+          count: count
         }
       })
+      window.location.reload()
+    },
+    toSchoolMsg(id,count) {
+      this.$router.push({
+        path: '/home/schoolMessage',
+        query: {
+          id: id,
+          count: count
+        }
+      })
+      window.location.reload()
+    },
+    toWorkMsg(id,count) {
+      this.$router.push({
+        path: '/home/workMessage',
+        query: {
+          id: id,
+          count: count
+        }
+      })
+      window.location.reload()
     }
   }
 }
@@ -90,20 +112,22 @@ export default {
 }
 .lieBiao {
   width: 95%;
-  height: 80px;
-  background: rgb(202, 202, 202);
-  overflow: hidden;
+  height: 60px;
+  background: rgb(241, 241, 241);
   margin-bottom: 10px;
 }
 .time {
-  width: 100px;
-  overflow: hidden;
+  width: 80px;
   display: flex;
   flex-direction: column;
+  padding: 8px;
+  background-color: rgb(1, 72, 153);
+  color: white;
+  text-align: center;
 }
 .title {
-  width: 500px;
+  width: 1030px;
   height: 70px;
   overflow: hidden;
 }
-</style>
+</style> 

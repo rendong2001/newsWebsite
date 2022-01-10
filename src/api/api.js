@@ -2,7 +2,7 @@
 //post请求参数放在data里面，get请求参数放在params里边
 
 import request from "../utils/request";
-//导航栏列表
+// 导航栏列表
 export const getNavList = data => {
   return request({
     method: 'GET',

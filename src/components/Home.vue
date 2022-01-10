@@ -11,20 +11,8 @@
     </el-header>
     <!-- 主页导航栏 -->
     <el-row>
-      <el-menu
-        mode="horizontal"
-        background-color="rgb(64, 112, 186)"
-        text-color="white"
-        class="menu"
-        active-text-color="#000000"
-        :default-active="activeIndex"
-        @select="handleSelect"
-      >
-        <el-menu-item
-          :key="index"
-          v-for="(item, index) in menuList"
-          :index="(item.id).toString()"
-        >
+      <el-menu mode="horizontal" background-color="rgb(64, 112, 186)" text-color="white" class="menu" active-text-color="#000000" :default-active="activeIndex" @select="handleSelect">
+        <el-menu-item :key="index" v-for="(item, index) in menuList" :index="(item.id).toString()">
           {{ item.contypeName }}
         </el-menu-item>
       </el-menu>
@@ -46,28 +34,30 @@ export default {
   data() {
     return {
       activeIndex: '1',
-      menuList: [],
+      menuList: [{contypeName: '首页',id: 1},{contypeName: '科协概况',id: 2},{contypeName: '政策法规',id: 3},{contypeName: '科协项目',id: 4},
+      {contypeName: '学术交流',id: 5},{contypeName: '办事指南',id: 6},{contypeName: '科普风采',id: 7},{contypeName: '学校首页',id: 8},
+      {contypeName: '联系我们',id: 9}],
     }
   },
   created() {
-    this.getNavArr();
+    // this.getNavArr();
   },
   mounted() {},
   watch: {},
   methods: {
-    //获取导航栏
-    getNavArr(){
-      const data ={};
-      //.then() 主要用于一个函数用到另一个函数的返回值
-      getNavList(data).then(res => {
-        console.log('res', res)
-        if(res.code == 200){
-          this.menuList = res.data
-        }
-      }).catch(err => {
-        console.log('err', err)
-      })
-    },
+    // //获取导航栏
+    // getNavArr(){
+    //   const data ={};
+    //   getNavList(data).then(res => {
+    //     console.log('res', res)
+    //     if(res.code == 200){
+    //       this.menuList = res.data
+    //     }
+    //   }).catch(err => {
+    //     console.log('err', err)
+    //   })
+    // },
+
     formatterTitle(t){
       switch(t){
         case '1':

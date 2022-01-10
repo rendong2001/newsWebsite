@@ -10,17 +10,13 @@
     <!-- 通知公告新闻列表 -->
     <div style="max-height:382px;overflow:hidden;">
       <ul>
-        <li
-          class="lieBiao liPointer"
-          :key="index"
-          v-for="(item, index) in noticeList"
-        >
+        <li class="lieBiao liPointer" :key="index" v-for="(item, index) in noticeList">
           <div class="time">
-            <span>{{ item.contypeId }}</span>
-            <span>{{ item.categoryId }}</span>
+            <span>{{ item.year }}</span>
+            <span>{{ item.month }}</span>
           </div>
-          <div class="title" @click="toNoticeMsg(item.title,item.id)">
-            {{ item.dataString }}
+          <div class="title" @click="toNoticeMsg(item.id,item.count)">
+            {{ item.news }}
           </div>
         </li>
       </ul>
@@ -33,8 +29,11 @@ export default {
   name: 'notice',
   data() {
     return {
-      noticeList: [
-      ]
+     noticeList: [{id:1,year: 2022,month:'1-10',count:10, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:2,year: 2022,month:'1-10',count:11, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:3,year: 2022,month:'1-10',count:12, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:4,year: 2022,month:'1-10',count:13, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:5,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:6,year: 2022,month:'1-10',count:15, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:17, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'}],
     }
   },
   created() {
@@ -58,12 +57,12 @@ export default {
       })
     },
     // 去到新闻展示页
-    toNoticeMsg(t,id) {
+    toNoticeMsg(id,count) {
       this.$router.push({
         path: '/home/noticeMessage',
         query: {
-          title: t,
-          id:id
+          id:id,
+          count:count
         }
       })
     },

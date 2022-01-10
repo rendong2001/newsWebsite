@@ -1,7 +1,6 @@
 <template>
   <div>
-    <span>noticeMessage</span>
-    <p>{{ this.$route.query.title }}</p>
+    <p>{{ this.$route.query.id }} 点击量：【{{this.$route.query.count}}】</p>
     <div v-html="message"></div>
   </div>
 </template>
@@ -14,7 +13,7 @@ export default {
     }
   },
   created(){
-    console.log(">>>>>>>>",this.$route.query.title);
+    console.log(">>>>>>>>",this.$route.query.id);
     this.queryAll();
   },
   methods:{

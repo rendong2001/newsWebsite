@@ -10,7 +10,7 @@
       <ul>
         <li :key="index" v-for="(item, index) in workList" class="liPointer">
           <div @click="toWorkMsg(item.title)" class="bgc mart10">
-            {{ item.dataString }}
+            {{ item.news }}
           </div>
         </li>
       </ul>
@@ -23,30 +23,33 @@ export default {
   name:'work',
   data(){
     return{
-      workList: [ 
-      ]
+      workList: [{id:1,year: 2022,month:'1-10',count:10, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:2,year: 2022,month:'1-10',count:11, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:3,year: 2022,month:'1-10',count:12, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:4,year: 2022,month:'1-10',count:13, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:5,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:6,year: 2022,month:'1-10',count:15, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
+      {id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:17, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'}],
     }
   },
   created() {
-    this.getnews();
+    // this.getnews();
   },
   methods:{
     //获取新闻列表
-    getnews() {
-      const data = {
-        categoryId: 2,//小标题ID
-        contypeId: 2,//大标题ID
-        p: 0//当前页
-      };
-      getNewsList(data).then(res => {
-        console.log('res',res);
-        if(res.code == 200){
-          this.workList = res.data.records
-        }
-      }).catch(err => {
-        console.log('err',err);
-      })
-    },
+    // getnews() {
+    //   const data = {
+    //     categoryId: 2,//小标题ID
+    //     contypeId: 2,//大标题ID
+    //     p: 0//当前页
+    //   };
+    //   getNewsList(data).then(res => {
+    //     console.log('res',res);
+    //     if(res.code == 200){
+    //       this.workList = res.data.records
+    //     }
+    //   }).catch(err => {
+    //     console.log('err',err);
+    //   })
+    // },
     toWorkMsg(t) {
       this.$router.push({
         path:'/home/workMessage',

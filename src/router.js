@@ -97,7 +97,13 @@ const router = new Router({
         },
       ]
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) { //页面跳转后自动回到顶部
+    if (savedPosition) {
+        return savedPosition
+    }
+    return {x: 0, y: 0}
+  }
 })
 
 // 挂载路由导航守卫
