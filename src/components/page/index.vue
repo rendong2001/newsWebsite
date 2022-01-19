@@ -3,7 +3,7 @@
     <!-- 首页上半部分 -->
     <el-row type="flex" class="row-bg" justify="space-between">
         <div class="block marr10">
-          <el-carousel height="460px"  arrow="always" :interval="2000">
+          <el-carousel height="460px"  arrow="always" :interval="3000">
             <el-carousel-item v-for="(item,index) in imgList" :key="index">
               <div>
                 <img :src="item.path"  alt="" style="width:105%;">

@@ -9,10 +9,8 @@
     <div style="max-height:420px;overflow:hidden;">
       <ul>
         <li :key="index" v-for="(item, index) in schoolList" class="liPointer">
-          <!-- <a href="item.path"> {{ item.title }} </a> -->
-          <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
-          <div @click="toSchoolMsg(item.title)" class="bgc mart10">
-            {{ item.news }}
+          <div @click="toSchoolMsg(item.id)" class="bgc mart10">
+            {{ item.title }}
           </div>
         </li>
       </ul>
@@ -25,11 +23,7 @@ export default {
   name: 'school',
   data() {
     return {
-      schoolList: [{id:1,year: 2022,month:'1-10',count:10, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:2,year: 2022,month:'1-10',count:11, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
-      {id:3,year: 2022,month:'1-10',count:12, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:4,year: 2022,month:'1-10',count:13, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
-      {id:5,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
-      {id:6,year: 2022,month:'1-10',count:15, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
-      {id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:17, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'}],
+      schoolList: [],
     }
   },
   created() {
@@ -38,17 +32,17 @@ export default {
   methods:{
     getnews(){
       const data = {
-        categoryId: 1,
-        contypeId: 2,
-        p: 0
-    }
+        current:1,
+        newsCategoryId:44,
+        size:6
+      }
       getNewsList(data).then(res => {
-        console.log('res',res);
+        console.log(res);
         if(res.code == 200){
           this.schoolList = res.data.records
         }
-      }).catch(err => {
-        console.log('err',err);
+      }).catch(error => {
+        console.log(error);
       })
     },
     //前往更多信息页面
@@ -61,11 +55,11 @@ export default {
       })
     },
     //前往信息展示页面
-    toSchoolMsg(t) {
+    toSchoolMsg(id) {
       this.$router.push({
-        path: 'schoolMessage',
+        path: '/home/news',
         query: {
-          title:t
+          id:id
         }
       })
     }

@@ -1,14 +1,36 @@
 <template>
   <div>
     <globalTitle />
-    <el-table :data="tableData" stripe style="width: 100%;">
-      <el-table-column type="index" label="序号" width="80px"></el-table-column>
-      <el-table-column prop="zhize" label="职责" width="180"> </el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
-      <el-table-column prop="tele" label="联系电话" width="180">
-      </el-table-column>
-      <el-table-column prop="e" label="邮箱"> </el-table-column>
-    </el-table>
+    <el-card class="card">
+      <div class="max">
+        <div class="left">
+          <el-card style="" class="img">
+            <p>微信公众号</p>
+            <img src="../../assets/gongZhongHao.jpg" alt="">
+          </el-card>
+          <el-card style="" class="img">
+            <p>新浪微博</p>
+            <img src="../../assets/weiBo.jpg" alt="">
+          </el-card>
+        </div>
+        <divc class="right">
+          <el-table :data="tableData" border  :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
+            <!-- :header-cell-style="{textAlign: 'center'}"设置头部居中： -->
+            <!-- :cell-style="{ textAlign: 'center' }"设置整个表格内容水平居中： -->
+            <el-table-column prop="id" label="序号" width="60" >
+            </el-table-column>
+            <el-table-column prop="zhize" label="职责" width="">
+            </el-table-column>
+            <el-table-column prop="name" label="姓名">
+            </el-table-column>
+            <el-table-column prop="tel" label="联系电话">
+            </el-table-column>
+            <el-table-column prop="mail" label="邮箱" width="200">
+            </el-table-column>
+          </el-table>  
+        </divc>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -19,47 +41,39 @@ export default {
   name: 'telephone',
   data() {
     return {
-      tableData: [
-        {
-          zhize: '校科协主席',
-          name: '王小虎',
-          tele: '17630124661',
-          e: '2345@qq.com'
-        },
-        {
-          zhize: '校科协秘书长',
-          name: '王小虎',
-          tele: '17630124661',
-          e: '2345@qq.com'
-        },
-        {
-          zhize: '校科协联络员',
-          name: '王小虎',
-          tele: '17630124661',
-          e: '2345@qq.com'
-        },
-        {
-          zhize: '青年分会主席',
-          name: '王小虎',
-          tele: '17630124661',
-          e: '2345@qq.com'
-        },
-        {
-          zhize: '学生分会联络员',
-          name: '王小虎',
-          tele: '17630124661',
-          e: '2345@qq.com'
-        },
-        {
-          zhize: 'XXXXX',
-          name: 'XXX',
-          tele: '17630124661',
-          e: '2345@qq.com'
-        }
+      tableData:[{id:1,zhize:'校长',name:'杨鸣',tel:'12345678910',mail:'12312312@qq.com'},
+        {id:1,zhize:'校长',name:'杨鸣',tel:'12345678910',mail:'12312312@qq.com'},
+        {id:1,zhize:'校长',name:'杨鸣',tel:'12345678910',mail:'12312312@qq.com'},
+        {id:1,zhize:'校长',name:'杨鸣',tel:'12345678910',mail:'12312312@qq.com'},
+        {id:1,zhize:'校长',name:'杨鸣',tel:'12345678910',mail:'12312312@qq.com'},
+        {id:1,zhize:'校长',name:'杨鸣',tel:'12345678910',mail:'12312312@qq.com'},
       ]
     }
   }
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.card{
+  margin-top: 10px;
+}
+.max{
+  display: flex;
+  justify-content: space-between;
+}
+p{
+  text-align: center;
+}
+.right{
+  width: 800px;
+}
+.left{
+  width: 200px;
+}
+.img{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+</style>

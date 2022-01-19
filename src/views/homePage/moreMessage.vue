@@ -5,100 +5,185 @@
     </el-row>
     <div class="mart15">
       <div v-if="this.$route.query.type == '通知公告'">
-        <ul>
-          <li class="lieBiao flex-v flex-between" :key="index" v-for="(item, index) in noticeList">
-            <div class="time">
-              <span>{{ item.year }}</span>
-              <span>{{ item.month }}</span>
-            </div>
-            <div class="title liPointer" @click="toNoticeMsg(item.id,item.count)">
-              {{ item.news }}
-            </div>
-          </li>
-        </ul>
+        <el-card>
+          <ul class="ul">
+            <li class="lieBiao liPointer flex-v flex-between" :key="index" v-for="(item, index) in noticeList">
+              <div class="time">
+                {{ item.releaseTime }}
+              </div>
+              <div class="title" @click="toNoticeMsg(item.id)">
+                {{ item.title }}
+              </div>
+            </li>
+          </ul>
+          <!-- 分页 -->
+          <div class="fenye">
+            <el-pagination
+              background
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage"
+              :page-size="pageSize"
+              layout="prev, pager, next,total"
+              :total="total">
+            </el-pagination>
+          </div>
+        </el-card>
       </div>
       <div v-if="this.$route.query.type == '学院动态'">
         <ul>
-          <li class="lieBiao flex-v flex-between" :key="index" v-for="(item, index) in schoolList">
-            <!-- <a href="item.path"> {{ item.title }} </a> -->
-            <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
-            <div class="time">
-              <span>{{ item.year }}</span>
-              <span>{{ item.month }}</span>
+          <el-card>
+            <ul class="ul">
+              <li class="lieBiao liPointer flex-v flex-between" :key="index" v-for="(item, index) in schoolList">
+                <div class="time">
+                  {{ item.releaseTime }}
+                </div>
+                <div class="title" @click="toSchoolMsg(item.id)">
+                  {{ item.title }}
+                </div>
+              </li>
+            </ul>
+            <!-- 分页 -->
+            <div class="fenye">
+              <el-pagination
+                background
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="pageSize"
+                layout="prev, pager, next,total"
+                :total="total">
+              </el-pagination>
             </div>
-            <div  class="title liPointer" @click="toSchoolMsg(item.id,item.count)">
-              {{ item.news }}
-            </div>
-          </li>
+        </el-card>
         </ul>
       </div>
       <div v-if="this.$route.query.type == '工作状态'">
-        <ul>
-          <li class="lieBiao flex-v flex-between" :key="index" v-for="(item, index) in workList">
-            <!-- <a href="item.path"> {{ item.title }} </a> -->
-            <!-- <router-link :to="{name:'schoolMessage',params:{id:item.id}}" >{{ item.title }} </router-link> -->
-            <div class="time">
-              <span>{{ item.year }}</span>
-              <span>{{ item.month }}</span>
+         <ul>
+           <el-card>
+            <ul class="ul">
+              <li class="lieBiao liPointer flex-v flex-between" :key="index" v-for="(item, index) in workList">
+                <div class="time">
+                  {{ item.releaseTime }}
+                </div>
+                <div class="title" @click="toWorkMsg(item.id)">
+                  {{ item.title }}
+                </div>
+              </li>
+            </ul>
+            <!-- 分页 -->
+            <div class="fenye">
+              <el-pagination
+                background
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="pageSize"
+                layout="prev, pager, next,total"
+                :total="total">
+              </el-pagination>
             </div>
-            <div class="title liPointer" @click="toWorkMsg(item.id,item.count)">{{ item.news }}</div>
-          </li>
+           </el-card>
         </ul>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {getNewsList} from '../../api/api'
 export default {
   name: 'moreMessage',
   data() {
     return {
-      noticeList: [{id:1,year: 2022,month:'1-10',count:10, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:2,year: 2022,month:'1-10',count:11, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
-      {id:3,year: 2022,month:'1-10',count:12, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:4,year: 2022,month:'1-10',count:13, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
-      {id:5,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:14, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
-      {id:6,year: 2022,month:'1-10',count:15, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},
-      {id:6,year: 2022,month:'1-10',count:16, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'},{id:6,year: 2022,month:'1-10',count:17, news:'你走过的地方只剩下思念难捱，把你藏在心头，每天每夜想你'}],
-      
-      schoolList: [{id:1,year: 2022,month:'1-10',count:10, news:'唐三藏参见女王陛下'},{id:2,year: 2022,month:'1-10',count:11, news:'唐三藏参见女王陛下'},
-      {id:3,year: 2022,month:'1-10',count:12, news:'唐三藏参见女王陛下'},{id:4,year: 2022,month:'1-10',count:13, news:'唐三藏参见女王陛下'},
-      {id:5,year: 2022,month:'1-10',count:14, news:'唐三藏参见女王陛下'},{id:6,year: 2022,month:'1-10',count:14, news:'唐三藏参见女王陛下'},
-      {id:6,year: 2022,month:'1-10',count:15, news:'唐三藏参见女王陛下'},{id:6,year: 2022,month:'1-10',count:16, news:'唐三藏参见女王陛下'},
-      {id:6,year: 2022,month:'1-10',count:16, news:'唐三藏参见女王陛下'},{id:6,year: 2022,month:'1-10',count:17, news:'唐三藏参见女王陛下'}],
-
-      workList: [{id:1,year: 2022,month:'1-10',count:10, news:'黑人超白竹炭深洁牙膏'},{id:2,year: 2022,month:'1-10',count:11, news:'黑人超白竹炭深洁牙膏'},
-      {id:3,year: 2022,month:'1-10',count:12, news:'黑人超白竹炭深洁牙膏'},{id:4,year: 2022,month:'1-10',count:13, news:'黑人超白竹炭深洁牙膏'},
-      {id:5,year: 2022,month:'1-10',count:14, news:'黑人超白竹炭深洁牙膏'},{id:6,year: 2022,month:'1-10',count:14, news:'黑人超白竹炭深洁牙膏'},
-      {id:6,year: 2022,month:'1-10',count:15, news:'黑人超白竹炭深洁牙膏'},{id:6,year: 2022,month:'1-10',count:16, news:'黑人超白竹炭深洁牙膏'},
-      {id:6,year: 2022,month:'1-10',count:16, news:'黑人超白竹炭深洁牙膏'},{id:6,year: 2022,month:'1-10',count:17, news:'黑人超白竹炭深洁牙膏'}],
+      noticeList: [],
+      schoolList: [],
+      workList: [],
+      currentPage:1,
+      pageSize:4,
+      total:0,
     }
   },
+  mounted(){
+    this.getnotice();
+    this.getwork();
+    this.getschool();
+  },
   methods: {
-    toNoticeMsg(id,count) {
+    handleCurrentChange(val){
+      console.log(`当前页: ${val}`);
+      this.getnotice();
+      this.getwork();
+      this.getschool();
+    },
+    //获取新闻列表
+    getnotice(){
+      const data = {
+        current:this.currentPage,
+        newsCategoryId:42,
+        size:this.pageSize
+      }
+      getNewsList(data).then(res => {
+        console.log(res);
+        if(res.code == 200){
+          this.noticeList = res.data.records
+          this.total =  Number(res.data.total)
+        }
+      }).catch(error => {
+        console.log(error);
+      })
+    },
+    getwork(){
+      const data = {
+        current:this.currentPage,
+        newsCategoryId:43,
+        size:this.pageSize
+      }
+      getNewsList(data).then(res => {
+        console.log(res);
+        if(res.code == 200){
+          this.workList = res.data.records
+          this.total =  Number(res.data.total)
+        }
+      }).catch(error => {
+        console.log(error);
+      })
+    },
+    getschool(){
+      const data = {
+        current:this.currentPage,
+        newsCategoryId:44,
+        size:this.pageSize
+      }
+      getNewsList(data).then(res => {
+        console.log(res);
+        if(res.code == 200){
+          this.schoolList = res.data.records
+          this.total =  Number(res.data.total)
+        }
+      }).catch(error => {
+        console.log(error);
+      })
+    },
+    toNoticeMsg(id) {
       this.$router.push({
-        path: '/home/noticeMessage',
+        path: '/home/news',
         query: {
           id: id,
-          count: count
         }
       })
       window.location.reload()
     },
-    toSchoolMsg(id,count) {
+    toSchoolMsg(id) {
       this.$router.push({
-        path: '/home/schoolMessage',
+        path: '/home/news',
         query: {
           id: id,
-          count: count
         }
       })
       window.location.reload()
     },
-    toWorkMsg(id,count) {
+    toWorkMsg(id) {
       this.$router.push({
-        path: '/home/workMessage',
+        path: '/home/news',
         query: {
           id: id,
-          count: count
         }
       })
       window.location.reload()
@@ -117,17 +202,24 @@ export default {
   margin-bottom: 10px;
 }
 .time {
-  width: 80px;
+  width: 100px;
+  padding: 17px 0px;
   display: flex;
   flex-direction: column;
-  padding: 8px;
   background-color: rgb(1, 72, 153);
   color: white;
   text-align: center;
 }
 .title {
-  width: 1030px;
-  height: 70px;
+  width: 550px;
+  height: 50px;
   overflow: hidden;
+  line-height: 60px;
+  /* // background-color: rgb(179, 19, 19); */
+  padding: 0 0 0 10px;
+}
+.ul{
+  width: 700px;
+  margin: 0 auto;
 }
 </style> 

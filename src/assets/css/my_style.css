@@ -20,6 +20,9 @@ li{
 .marr10{
   margin-right: 10px !important;
 }
+.marb5{
+  margin-bottom: 5px !important;
+}
 .marb10{
   margin-bottom: 10px !important;
 }
@@ -58,4 +61,8 @@ li{
 /* 蓝色标题 */
 .color {
   color: rgb(1, 72, 153);
+}
+/* 变小手 */
+.cursor{
+  cursor: pointer;
 }

@@ -7,15 +7,8 @@
       <!-- 小标题 -->
       <el-col :span="4" class="marr10">
         <ul>
-          <li
-            v-for="(item, index) in menuList"
-            :key="index"
-            class="liStylenone liPointer marb10"
-            @click="changeMenu(item)"
-          >
-            <b :class="cont == item.categoryName ? 'ft-blue' : 'ft-black'">{{
-              item.categoryName
-            }}</b>
+          <li v-for="(item, index) in menuList" :key="index" class="liStylenone liPointer marb10" @click="changeMenu(item)">
+            <b :class="cont == item.name ? 'ft-blue' : 'ft-black'">{{item.name}}</b>
           </li>
         </ul>
       </el-col>
@@ -23,23 +16,22 @@
       <el-card class="box-card">
         <el-col :span="18">
           <div>
-            <el-row
-              class="marb10"
-              :key="index"
-              v-for="(item, index) in newsList"
-            >
-              {{ item.title }}
+            <el-row class="marb10" :key="index" v-for="(item, index) in newsList">
+              <div class="flex-v flex-between marb5 cursor" @click="show(item)">
+                <div>{{ item.title }}</div>
+                <div>{{ item.releaseTime }}</div>
+              </div>
             </el-row>
           </div>
           <!-- 分页 -->
-          <div>
+          <div class="fenye">
             <el-pagination
+              background
               @current-change="handleCurrentChange"
               :current-page.sync="currentPage"
-              :page-size="20"
-              layout="total, pager, next"
-              :total="total"
-            >
+              :page-size="pageSize"
+              layout="prev, pager, next,total"
+              :total="total">
             </el-pagination>
           </div>
         </el-col>
@@ -47,78 +39,81 @@
     </el-row>
   </div>
 </template>
+
 <script>
 import globalTitle from '../globalTitle.vue'
 import { getMinTitle, getNewsList } from '../../api/api'
 export default {
-  name: 'kePuFengCai',
-  components: {
-    globalTitle
-  },
+  components: { globalTitle },
+  name: 'xueShuJiaoLiu',
   data() {
     return {
       cont: '',
       menuList: [],
-      newsList: [],
-      total: 0,
-      currentPage: 1
+      newsList:[],
+      pageSize:2,
+      currentPage:1,
+      total:0,
+      item:{},
     }
   },
   created() {
-    this.getMinTitleList()
   },
-  mounted() {},
+  mounted() {
+    this.getTitle();
+  },
   watch: {
-    menuList(newval, oldval) {
-      this.getAllNewsList(this.menuList[0])
-      this.cont = this.menuList[0].categoryName
+    menuList(n,o){
+      this.cont =  this.menuList[0].name
+      this.getnews(this.menuList[0]);
     }
   },
   methods: {
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      console.log(`当前页: ${val}`);
+      this.getnews(this.item);
+    },
+    getTitle(){
+      const data = Number(this.$route.query.id);
+      getMinTitle(data).then(res => {
+        console.log(res);
+        if(res.code == 200){
+          this.menuList = res.data
+        }
+      }).catch(err => {
+        console.log(err);
+      })
     },
     changeMenu(val) {
-      this.getAllNewsList(val)
-      this.cont = val.categoryName
+      this.cont = val.name
+      this.item = val
+      this.currentPage = 1
+      this.getnews(val);
     },
-    getMinTitleList() {
+    getnews(item){
       const data = {
-        contypeId: this.$route.query.id,
-        p: 1
-      }
-      getMinTitle(data)
-        .then((res) => {
-          console.log('res', res)
-          if (res.code == 200) {
-            this.menuList = res.data.records
-          }
-        })
-        .catch((err) => {
-          console.log('err', err)
-        })
+        current:this.currentPage,
+        newsCategoryId:item.id,
+        size:this.pageSize
+      };
+      getNewsList(data).then(res => {
+        console.log(res);
+        if(res.code == 200){
+          this.newsList = res.data.records
+          this.total =  Number(res.data.total)
+        }
+      }).catch(error => {
+        console.log(error);
+      })
     },
-    getAllNewsList(item) {
-      const data = {
-        categoryId: item.id,
-        contypeId: item.contypeId,
-        p: this.currentPage
-      }
-      getNewsList(data)
-        .then((res) => {
-          console.log('res', res)
-          if (res.code == 200) {
-            this.newsList = res.data.records
-            this.total = Number(res.data.total)
-          }
-        })
-        .catch((err) => {
-          console.log('err', err)
-        })
+    show(item){
+      // console.log(item.id);
+      this.$router.push({path:'/home/news',query:{id:item.id}})
     }
   }
 }
 </script>
+
 <style lang="less" scoped>
 ul {
   width: 200px;
@@ -135,4 +130,12 @@ ul {
 .ft-black {
   color: #000;
 }
+.box-card{
+  height: 600px;
+  position: relative;
+  .fenye{
+    position: absolute;
+    bottom: 2px;
+  }
+} 
 </style>

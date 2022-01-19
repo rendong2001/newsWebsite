@@ -1,6 +1,6 @@
 //对axios的封装
 import axios from 'axios'
-let is_baseURL = 'http://8.140.68.52:8181/'//测试环境
+let is_baseURL = 'http://localhost:8080/'//测试环境
 //创建axios实例
 const request = axios.create({
   baseURL: is_baseURL

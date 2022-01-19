@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './components/Login.vue'
 import Home from './components/Home.vue'
+import NotFound from './components/NotFound.vue'
 import index from './components/page/index.vue'
 import introduce from './components/page/introduce.vue'
 import zhengce from './components/page/zhengce.vue'
@@ -11,10 +12,12 @@ import banShiZhiNan from './components/page/banShiZhiNan.vue'
 import kePuFengCai from './components/page/kePuFengCai.vue'
 import xueXiaoShouYe from './components/page/xueXiaoShouYe.vue'
 import telephone from './components/page/telephone.vue'
-import schoolMessage from './views/homePage/schoolMessage'
-import noticeMessage from './views/homePage/noticeMessage'
+import News from './components/page/News.vue'
 import moreMessage from './views/homePage/moreMessage'
-import workMessage from './views/homePage/workMessage'
+import Administrator from './components/Administrator/AdminHome.vue'
+import Welcome from './components/Administrator/Welcome.vue'
+import Main from './components/Administrator/Main.vue'
+import Edit from './components/Administrator/Edit.vue'
 
 
 Vue.use(Router)
@@ -23,6 +26,13 @@ const router = new Router({
   routes: [
     { path: '/', redirect: '/home' },
     { path: '/login', component: Login },
+    { path:'/administrator',
+      component: Administrator,
+      children: [{ path:'welcome',component:Welcome },
+                { path:'main',component:Main },
+                { path:'edit',component:Edit },
+                { path:'news',component:News }] 
+    },
     { 
       path: '/home', 
       component: Home ,
@@ -76,27 +86,18 @@ const router = new Router({
           component:telephone
         },
         {
-          path:'schoolMessage',
-          name:'schoolMessage',
-          component:schoolMessage
-        },
-        {
-          path:'noticeMessage',
-          name:'noticeMessage',
-          component:noticeMessage
-        },
-        {
           path:'moreMessage',
           name:'moreMessage',
           component:moreMessage
         },
         {
-          path:'workMessage',
-          name:'workMessage',
-          component:workMessage
+          path:'news',
+          name:'News',
+          component:News
         },
       ]
-    }
+    },
+    { path:'*',component:NotFound }
   ],
   scrollBehavior(to, from, savedPosition) { //页面跳转后自动回到顶部
     if (savedPosition) {
