@@ -15,7 +15,7 @@
         <el-row :gutter="40">
           <el-col :span="4">
             <!-- 添加新闻按钮 -->
-            <el-button el-button class="add" type="success" icon="el-icon-plus" @click="goEdit()">点击在该列表下添加一条新闻</el-button>
+            <el-button el-button class="add" type="success" icon="el-icon-plus" @click="goEdit(newsCategoryId)">点击在该列表下添加一条新闻</el-button>
           </el-col>
           <el-col :span="10">
             <!-- 新闻搜索 -->
@@ -50,22 +50,25 @@
             
           </el-table-column>
         </el-table>
-        <div class="fenye">
+        <!-- 分页 -->
+        <div>
           <!-- 获取新闻列表分页 -->
-          <div class="get">
+          <div>
             <el-pagination
+              v-show="getShow"
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="currentPage"
-              :page-sizes="[3,6,12, 18,]"
+              :page-sizes="[6,12, 18,]"
               :page-size="100"
               layout="total, sizes, prev, pager, next, jumper"
               :total="total">
             </el-pagination>
           </div>
           <!-- 模糊新闻列表分页 -->
-          <div class="fuzzy">
+          <div>
             <el-pagination
+              v-show="fuzzyShow"
               @size-change="handleSizeChangefuzzy"
               @current-change="handleCurrentChangefuzzy"
               :current-page="fuzzyForm.fuzzycurrent"
@@ -92,7 +95,8 @@
             <el-input v-model="editForm.title"></el-input>
           </el-form-item>
           <el-form-item label="发布日期:">
-            <el-input v-model="editForm.releaseTime"></el-input>
+            <!-- <el-input v-model="editForm.releaseTime"></el-input> -->
+            <el-date-picker v-model="editForm.releaseTime" type="date" placeholder="请选择发布日期"></el-date-picker>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -106,16 +110,17 @@
 
 <script>
 import { getNewsList,getnew,update,deleteNew,fuzzy } from '../../api/api'
-import axios from 'axios'
 export default {
   data() {
     return {
+      fuzzyShow:false,  //模糊查询分页的显示(布尔值)
+      getShow:true, //获取分页的显示(布尔值)
       visible: false,
       editDialogVisible:false,  //控制修改对话框的布尔值
       editForm:{},  //查询到的新闻对象，目前仅供修改使用
       newsCategoryId:1, //先存一个小标题id
       tableData:[],   //新闻列表对象
-      pageSize:3,     //每页条数
+      pageSize:6,     //每页条数
       currentPage:1,  //当前页
       total:0,        //新闻总条数
       fuzzyForm:{ fuzzytitle:'',fuzzytotal:0,fuzzycurrent:1,fuzzysize:6 },  //模糊查询列表对象
@@ -216,8 +221,8 @@ export default {
     },
     //级联选择器的方法
     handleChange(value) {
-      console.log(value);
-      console.log(value[1]);
+      // console.log(value);
+      // console.log(value[1]);
       this.newsCategoryId = value[1]; //将得到的小标题id存放起来
       this.query(this.newsCategoryId);
     },
@@ -228,7 +233,7 @@ export default {
         size:this.pageSize
       };
       getNewsList(data).then(res=>{
-        console.log(res);
+        // console.log(res);
         if (res.code !== 200) {
           return this.$message.error('获取新闻列表失败')
         }else{
@@ -242,7 +247,7 @@ export default {
     //展示修改对话框
     showEditDialog(id){
       getnew(id).then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.code == 200) {
           this.editForm = res.data
         }     
@@ -251,40 +256,35 @@ export default {
     },
     //确定修改表单提交，验证发起请求
     editNew(){
-      // console.log(typeof(this.editForm.releaseTime)); 
-      // console.log(this.editForm.releaseTime);
-      let arr = this.editForm.releaseTime.split('')
-      if(arr[4] !== '/' || arr[7] !== '/'){
-        return this.$message.error('请按照“XXXX/XX/XX”的格式填写日期')
-      }else{
-        const data = {
-          id: this.editForm.id,
-          releaseTime: this.editForm.releaseTime,
-          title:this.editForm.title
-        }
-        update(data).then(res=>{
-          console.log('dsadasas'+res);
-          if (res.code == 200) {
-            this.editDialogVisible =false;
-            this.$message.success('修改新闻成功！')
-            this.query(this.newsCategoryId);
-          }
-        })
+      const data = {
+        id: this.editForm.id,
+        releaseTime: this.editForm.releaseTime,
+        title:this.editForm.title
       }
+      update(data).then(res=>{
+        // console.log('dsadasas',res);
+        if (res.code == 200) {
+          this.editDialogVisible =false;
+          this.$message.success('修改新闻成功！')
+          this.query(this.newsCategoryId);
+        }
+      })
     },
     //模糊查询
     fuzzyList(title){
-      console.log(title);
+      // console.log(title);
       if(title == ''){
         return  this.$message.error('请先输入查询新闻标题！')
       }
+      this.fuzzyShow = true //模糊分页显示
+      this.getShow = false  //获取分页隐藏
       const data = {
         current: this.fuzzyForm.fuzzycurrent,
         size: this.fuzzyForm.fuzzysize,
         title:title
       }
       fuzzy(data).then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.code !== 200) {
           return this.$message.error('查询新闻列表失败')
         }else{
@@ -299,10 +299,12 @@ export default {
     qingKong(){
       this.tableData = []
       this.fuzzyForm.fuzzytotal = 0
+      this.fuzzyShow = false
+      this.getShow = true
     },
     //根据id删除新闻
     async deleteNews(id){
-      console.log(id);
+      // console.log(id);
       const res = await this.$confirm('此操作将永久删除该条新闻, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -355,15 +357,17 @@ export default {
       this.fuzzyList(this.fuzzyForm.fuzzytitle) //模糊查询
     },
     //去往添加编辑页面
-    goEdit(){
-      if (this.newsCategoryId==27||this.newsCategoryId==28||this.newsCategoryId==29||
-      this.newsCategoryId==30||this.newsCategoryId==31) {
-        this.$message.error('该新闻标题下不能添加新闻')
-      }else if(this.newsCategoryId == 35||this.newsCategoryId==36||this.newsCategoryId==37||
+    goEdit(id){
+      if (this.newsCategoryId==27&&this.total==1||this.newsCategoryId==28&&this.total==1||this.newsCategoryId==29&&this.total==1||
+      this.newsCategoryId==30&&this.total==1||this.newsCategoryId==31&&this.total==1) {
+        this.$message.error('该新闻标题下只能存在一篇新闻')
+      }else if(this.newsCategoryId==27||this.newsCategoryId==28||this.newsCategoryId==29||this.newsCategoryId==30||
+      this.newsCategoryId==31||this.newsCategoryId == 35||this.newsCategoryId==36||this.newsCategoryId==37||
       this.newsCategoryId==38||this.newsCategoryId==39||this.newsCategoryId==40||
       this.newsCategoryId==41||this.newsCategoryId==42||this.newsCategoryId==43||
       this.newsCategoryId==44){
-        this.$router.push('/administrator/edit')
+        this.$router.push({path:'/administrator/edit',query:{id:id}})
+        console.log(this.newsCategoryId);
       }else{
         this.$message.error('请先选择新闻标题')
       } 
@@ -376,11 +380,10 @@ export default {
 .add{
   margin-bottom: 10px !important;
 }
+.block{
+  margin-bottom: 10px;
+}
 .el-pagination{
   margin-top: 10px;
-}
-.fenye{
-  display: flex;
-  justify-content: space-between;
 }
 </style>

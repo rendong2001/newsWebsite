@@ -98,7 +98,7 @@ export default {
       currentPagenotice:1,  //通知公告的当前页
       currentPageschool:1,  //学院动态的当前页
       currentPagework:1,  //工作动态的当前页
-      pageSize:4,
+      pageSize:10,
       totalnotice:0,  //通知公告新闻的总条数
       totalschool:0,  //学院动态新闻的总条数
       totalwork:0,  //工作动态新闻的总条数
@@ -212,7 +212,7 @@ export default {
   border-bottom: 1px solid #0f99e9;
 }
 .lieBiao {
-  width: 95%;
+  width: 100%;
   height: 60px;
   background: rgb(241, 241, 241);
   margin-bottom: 10px;
@@ -220,14 +220,12 @@ export default {
 .time {
   width: 100px;
   padding: 17px 0px;
-  display: flex;
-  flex-direction: column;
   background-color: rgb(1, 72, 153);
   color: white;
   text-align: center;
 }
 .title {
-  width: 550px;
+  width: 980px;
   height: 50px;
   overflow: hidden;
   line-height: 60px;
@@ -235,7 +233,7 @@ export default {
   padding: 0 0 0 10px;
 }
 .ul{
-  width: 700px;
-  margin: 0 auto;
+  width: 1100px;
+  margin: 0;
 }
 </style> 

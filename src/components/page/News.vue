@@ -22,9 +22,8 @@ export default {
     }
   },
   created(){
-    console.log(">>>>>>>>",this.$route.query.id);
+    // console.log(">>>>>>>>",this.$route.query.id);
     this.getalone();
-    // this.queryAll();
   },
   methods:{
     getalone(){
@@ -37,18 +36,15 @@ export default {
         this.title = res.data.title;
       })
     },
-    // queryAll(){
-    //   this.content = ``
-    // }
   },
 }
 </script>
 <style>
-h2{
+.header h2{
   color: rgb(3, 73, 144);
   text-align: center;
 }
-p{
+.header p{
   background-color: rgb(246, 246, 246);
   text-align: center;
   height: 35px;

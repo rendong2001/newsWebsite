@@ -13,7 +13,7 @@
             <img src="../../assets/weiBo.jpg" alt="">
           </el-card>
         </div>
-        <divc class="right">
+        <div class="right">
           <el-table :data="tableData" border  :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
             <!-- :header-cell-style="{textAlign: 'center'}"设置头部居中： -->
             <!-- :cell-style="{ textAlign: 'center' }"设置整个表格内容水平居中： -->
@@ -28,7 +28,7 @@
             <el-table-column prop="mail" label="邮箱" width="200">
             </el-table-column>
           </el-table>  
-        </divc>
+        </div>
       </div>
     </el-card>
   </div>

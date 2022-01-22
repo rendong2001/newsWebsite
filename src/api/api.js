@@ -55,3 +55,11 @@ export const fuzzy = data => {
     params:data,
   })
 }
+//添加新闻
+export const add = data => {
+  return request({
+    method:'POST',
+    url:'/news/add',
+    params:data
+  })
+}

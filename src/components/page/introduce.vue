@@ -14,8 +14,8 @@
       </el-col>
        <!-- 新闻内容 -->
       <el-card class="box-card">
-        <el-col :span="18">
-          <div>{{ this.new.content }}</div>
+        <el-col>
+          <div v-html="this.new.content"></div>
         </el-col>
       </el-card>
     </el-row>
@@ -108,6 +108,9 @@ ul {
     line-height: 50px;
     text-align: center;
   }
+}
+.box-card{
+  // background-color: rgb(131, 212, 115);
 }
 .ft-blue {
   color: rgb(9, 143, 252);
