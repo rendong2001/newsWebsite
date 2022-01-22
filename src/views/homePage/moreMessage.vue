@@ -17,14 +17,14 @@
             </li>
           </ul>
           <!-- 分页 -->
-          <div class="fenye">
+          <div>
             <el-pagination
               background
-              @current-change="handleCurrentChange"
-              :current-page.sync="currentPage"
+              @current-change="handleCurrentChange1"
+              :current-page="currentPagenotice"
               :page-size="pageSize"
               layout="prev, pager, next,total"
-              :total="total">
+              :total="totalnotice">
             </el-pagination>
           </div>
         </el-card>
@@ -43,14 +43,14 @@
               </li>
             </ul>
             <!-- 分页 -->
-            <div class="fenye">
+            <div>
               <el-pagination
                 background
-                @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
+                @current-change="handleCurrentChange2"
+                :current-page.sync="currentPageschool"
                 :page-size="pageSize"
                 layout="prev, pager, next,total"
-                :total="total">
+                :total="totalschool">
               </el-pagination>
             </div>
         </el-card>
@@ -70,14 +70,14 @@
               </li>
             </ul>
             <!-- 分页 -->
-            <div class="fenye">
+            <div>
               <el-pagination
                 background
-                @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
+                @current-change="handleCurrentChange3"
+                :current-page.sync="currentPagework"
                 :page-size="pageSize"
                 layout="prev, pager, next,total"
-                :total="total">
+                :total="totalwork">
               </el-pagination>
             </div>
            </el-card>
@@ -95,9 +95,13 @@ export default {
       noticeList: [],
       schoolList: [],
       workList: [],
-      currentPage:1,
+      currentPagenotice:1,  //通知公告的当前页
+      currentPageschool:1,  //学院动态的当前页
+      currentPagework:1,  //工作动态的当前页
       pageSize:4,
-      total:0,
+      totalnotice:0,  //通知公告新闻的总条数
+      totalschool:0,  //学院动态新闻的总条数
+      totalwork:0,  //工作动态新闻的总条数
     }
   },
   mounted(){
@@ -106,24 +110,36 @@ export default {
     this.getschool();
   },
   methods: {
-    handleCurrentChange(val){
-      console.log(`当前页: ${val}`);
+    //通知公告的分页切换
+    handleCurrentChange1(val){
+      // console.log(`当前页: ${val}`);
+      this.currentPagenotice = val;
       this.getnotice();
-      this.getwork();
+    },
+    //学院动态的分页切换
+    handleCurrentChange2(val){
+      // console.log(`当前页: ${val}`);
+      this.currentPageschool = val;
       this.getschool();
+    },
+    //工作动态的分页切换
+    handleCurrentChange3(val){
+      // console.log(`当前页: ${val}`);
+      this.currentPagework = val;
+      this.getwork();
     },
     //获取新闻列表
     getnotice(){
       const data = {
-        current:this.currentPage,
+        current:this.currentPagenotice,
         newsCategoryId:42,
         size:this.pageSize
       }
       getNewsList(data).then(res => {
-        console.log(res);
+        // console.log(res);
         if(res.code == 200){
           this.noticeList = res.data.records
-          this.total =  Number(res.data.total)
+          this.totalnotice =  res.data.total
         }
       }).catch(error => {
         console.log(error);
@@ -131,15 +147,15 @@ export default {
     },
     getwork(){
       const data = {
-        current:this.currentPage,
+        current:this.currentPagework,
         newsCategoryId:43,
         size:this.pageSize
       }
       getNewsList(data).then(res => {
-        console.log(res);
+        // console.log(res);
         if(res.code == 200){
           this.workList = res.data.records
-          this.total =  Number(res.data.total)
+          this.totalwork =  Number(res.data.total)
         }
       }).catch(error => {
         console.log(error);
@@ -147,15 +163,15 @@ export default {
     },
     getschool(){
       const data = {
-        current:this.currentPage,
+        current:this.currentPageschool,
         newsCategoryId:44,
         size:this.pageSize
       }
       getNewsList(data).then(res => {
-        console.log(res);
+        // console.log(res);
         if(res.code == 200){
           this.schoolList = res.data.records
-          this.total =  Number(res.data.total)
+          this.totalschool =  Number(res.data.total)
         }
       }).catch(error => {
         console.log(error);

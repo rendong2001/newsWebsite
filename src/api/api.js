@@ -31,3 +31,27 @@ export const getnew = data => {
     url:`/news/main/${data}`
   })
 }
+//修改新闻
+export const update = data => {
+  return request({
+    method:'POST',
+    url:'/news/update',
+    params:data,
+  })
+}
+//删除新闻
+export const deleteNew = data => {
+  return request({
+    method:'POST',
+    url:'/news/delete',
+    params:data,
+  })
+}
+//模糊查询
+export const fuzzy = data => {
+  return request({
+    method:'POST',
+    url:'/news/fuzzy',
+    params:data,
+  })
+}

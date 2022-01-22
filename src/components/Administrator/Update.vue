@@ -1,7 +1,11 @@
 <template>
   <div class="box">
-    新闻标题：<el-input v-model="title" placeholder="请输入新闻标题"></el-input><br/><br/>
-    发布日期：<el-input v-model="releaseTime" placeholder="请输入新闻发布日期"></el-input>
+    新闻标题：<el-input v-model="input" placeholder="请输入新闻标题"></el-input><br/><br/>
+    发布日期：<el-date-picker
+                v-model="value1"
+                type="date"
+                placeholder="选择日期">
+              </el-date-picker><br/><br/>
     新闻内容：<quill-editor ref="text" v-model="content" class="myQuillEditor" :options="editorOption" />
     <el-button type="primary" @click="submit">确定</el-button>
     <el-button type="success">提交</el-button>
@@ -16,8 +20,8 @@ export default {
   components:{ quillEditor },
   data(){
     return {
-      title:'', //标题内容
-      releaseTime:'', //发布日期
+      input:'', //标题内容
+      value1:'',  //日期
       content: '',  //新闻内容
       editorOption: {
         placeholder: "请输入正文",

@@ -9,7 +9,6 @@ import './assets/css/global.css'
 import './assets/css/my_style.css'
 
 
-
 import axios from 'axios'
 // 配置请求的跟路径
 // axios.defaults.baseURL = 'http://8.140.68.52:8181'

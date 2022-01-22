@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 级联选择器 -->
      <div class="block">
       <el-cascader
         v-model="value"
@@ -11,7 +12,19 @@
     </div>
     <div>
       <el-card class="box-card">
-        <el-button class="add" type="success" icon="el-icon-plus" @click="goEdit()">点击在该列表下添加一条新闻</el-button>
+        <el-row :gutter="40">
+          <el-col :span="4">
+            <!-- 添加新闻按钮 -->
+            <el-button el-button class="add" type="success" icon="el-icon-plus" @click="goEdit()">点击在该列表下添加一条新闻</el-button>
+          </el-col>
+          <el-col :span="10">
+            <!-- 新闻搜索 -->
+            <el-input clearable @clear="qingKong()" placeholder="请输入所要查询的新闻标题" v-model="fuzzyForm.fuzzytitle" class="input-with-select">
+              <el-button class="btn" slot="append" icon="el-icon-search" @click="fuzzyList(fuzzyForm.fuzzytitle)"></el-button>
+            </el-input>
+          </el-col>
+        </el-row>
+        <!-- 新闻表格区域 -->
         <el-table :data="tableData" border style="width: 100%" :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }"
         >
           <!-- :header-cell-style="{textAlign: 'center'}"设置头部居中： -->
@@ -30,23 +43,16 @@
               <!-- {{ scope.row.id }} -->
               <div>
                 <el-button type="success" @click="look(scope.row.id)">查看</el-button>
-                <el-button type="warning" @click="amend(scope.row.id)">修改</el-button>&nbsp
-                <el-popconfirm
-                  confirm-button-text='是的'
-                  cancel-button-text='取消'
-                  icon="el-icon-info"
-                  icon-color="red"
-                  title="确定删除该条新闻？"
-                >
-                  <el-button slot="reference">删除</el-button>
-                </el-popconfirm>
+                <el-button type="warning" @click="showEditDialog(scope.row.id)">修改</el-button>
+                <el-button type="info" @click="deleteNews(scope.row.id)">删除</el-button>
               </div>
             </template>
             
           </el-table-column>
         </el-table>
-        <!-- 分页 -->
-          <div>
+        <div class="fenye">
+          <!-- 获取新闻列表分页 -->
+          <div class="get">
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
@@ -57,24 +63,62 @@
               :total="total">
             </el-pagination>
           </div>
+          <!-- 模糊新闻列表分页 -->
+          <div class="fuzzy">
+            <el-pagination
+              @size-change="handleSizeChangefuzzy"
+              @current-change="handleCurrentChangefuzzy"
+              :current-page="fuzzyForm.fuzzycurrent"
+              :page-sizes="[6,12, 18,]"
+              :page-size="100"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="fuzzyForm.fuzzytotal">
+            </el-pagination>
+          </div>
+        </div>
       </el-card>
+      <!-- 修改新闻的对话框 -->
+      <el-dialog
+        title="修改新闻"
+        :visible.sync="editDialogVisible"
+        width="50%"
+        :before-close="handleClose">
+        <!-- rules表单验证规则，ref当前表单的验证对象 -->
+        <el-form ref="editFormRef" :model="editForm"  label-width="80px" status-icon>
+          <el-form-item label="id:">
+            <el-input v-model="editForm.id" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="新闻标题:">
+            <el-input v-model="editForm.title"></el-input>
+          </el-form-item>
+          <el-form-item label="发布日期:">
+            <el-input v-model="editForm.releaseTime"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="editDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="editNew()">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-import { getNewsList } from '../../api/api'
+import { getNewsList,getnew,update,deleteNew,fuzzy } from '../../api/api'
 import axios from 'axios'
 export default {
   data() {
     return {
       visible: false,
+      editDialogVisible:false,  //控制修改对话框的布尔值
+      editForm:{},  //查询到的新闻对象，目前仅供修改使用
       newsCategoryId:1, //先存一个小标题id
       tableData:[],   //新闻列表对象
-      pageSize:6,     //每页条数
+      pageSize:3,     //每页条数
       currentPage:1,  //当前页
-      newsList:[],
       total:0,        //新闻总条数
+      fuzzyForm:{ fuzzytitle:'',fuzzytotal:0,fuzzycurrent:1,fuzzysize:6 },  //模糊查询列表对象
       value: [],
       options: [{
         value: 1,
@@ -162,26 +206,21 @@ export default {
   mounted(){
   },
   methods: {
+    //修改对话框关闭的方法
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    },
+    //级联选择器的方法
     handleChange(value) {
       console.log(value);
       console.log(value[1]);
       this.newsCategoryId = value[1]; //将得到的小标题id存放起来
       this.query(this.newsCategoryId);
     },
-    // query(value){
-    //   const data = {
-    //     current:this.currentPage,
-    //     newsCategoryId:value[1],
-    //     size:this.pageSize
-    //   };
-    //   getNewsList(data).then(res=>{
-    //     console.log(res);
-    //     this.tableData = res.data.records
-    //     this.total = res.data.total
-    //   }).catch(err => {
-    //     console.log(err);
-    //   })
-    // },
     query(newsCategoryId){
       const data = {
         current:this.currentPage,
@@ -200,10 +239,98 @@ export default {
         console.log(err);
       })
     },
-    //修改
-    amend(id){
-      alert('爱你呦');
-      console.log('>>>'+id);
+    //展示修改对话框
+    showEditDialog(id){
+      getnew(id).then(res => {
+        console.log(res);
+        if (res.code == 200) {
+          this.editForm = res.data
+        }     
+      })
+      this.editDialogVisible = true;
+    },
+    //确定修改表单提交，验证发起请求
+    editNew(){
+      // console.log(typeof(this.editForm.releaseTime)); 
+      // console.log(this.editForm.releaseTime);
+      let arr = this.editForm.releaseTime.split('')
+      if(arr[4] !== '/' || arr[7] !== '/'){
+        return this.$message.error('请按照“XXXX/XX/XX”的格式填写日期')
+      }else{
+        const data = {
+          id: this.editForm.id,
+          releaseTime: this.editForm.releaseTime,
+          title:this.editForm.title
+        }
+        update(data).then(res=>{
+          console.log('dsadasas'+res);
+          if (res.code == 200) {
+            this.editDialogVisible =false;
+            this.$message.success('修改新闻成功！')
+            this.query(this.newsCategoryId);
+          }
+        })
+      }
+    },
+    //模糊查询
+    fuzzyList(title){
+      console.log(title);
+      if(title == ''){
+        return  this.$message.error('请先输入查询新闻标题！')
+      }
+      const data = {
+        current: this.fuzzyForm.fuzzycurrent,
+        size: this.fuzzyForm.fuzzysize,
+        title:title
+      }
+      fuzzy(data).then(res => {
+        console.log(res);
+        if (res.code !== 200) {
+          return this.$message.error('查询新闻列表失败')
+        }else{
+          this.tableData = res.data.records
+          this.fuzzyForm.fuzzytotal = res.data.total
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    //清空查询列表内容
+    qingKong(){
+      this.tableData = []
+      this.fuzzyForm.fuzzytotal = 0
+    },
+    //根据id删除新闻
+    async deleteNews(id){
+      console.log(id);
+      const res = await this.$confirm('此操作将永久删除该条新闻, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => {
+        return err
+      })
+      //如果用户点击确定则返回confirm
+      //如果用户点击取消则返回cancel
+      console.log(res);
+      if(res !== 'confirm'){
+        return this.$message.info('已取消删除~')
+      }else{
+        console.log(id);
+        const data = {
+          id:id
+        }
+        //参数data 要以对象的形式传入
+        deleteNew(data).then(res => {
+          console.log('>>>'+res);
+          if(res.code == 200){
+            this.$message.success('删除新闻成功！')
+            this.query(this.newsCategoryId);
+          }else{
+            return this.$message.error('删除新闻失败！')
+          }
+        })
+      }
     },
     //查看
     look(id){
@@ -218,6 +345,14 @@ export default {
       // console.log(`每页 ${val} 条`);
       this.pageSize = val;
       this.query(this.newsCategoryId)
+    },
+    handleCurrentChangefuzzy(val){
+      this.fuzzyForm.fuzzycurrent = val
+      this.fuzzyList(this.fuzzyForm.fuzzytitle) //模糊查询
+    },
+    handleSizeChangefuzzy(val){
+      this.fuzzyForm.fuzzysize = val
+      this.fuzzyList(this.fuzzyForm.fuzzytitle) //模糊查询
     },
     //去往添加编辑页面
     goEdit(){
@@ -243,5 +378,9 @@ export default {
 }
 .el-pagination{
   margin-top: 10px;
+}
+.fenye{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

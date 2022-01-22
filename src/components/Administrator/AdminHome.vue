@@ -3,7 +3,7 @@
     <el-header>
       <div>
         <img src="../../assets/head.png" alt="" />
-        <span>后台管理系统</span>
+        <span>新闻后台管理系统</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>

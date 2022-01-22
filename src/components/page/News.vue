@@ -40,7 +40,7 @@ export default {
     // queryAll(){
     //   this.content = ``
     // }
-  }
+  },
 }
 </script>
 <style>
