@@ -55,9 +55,9 @@ export default {
     }
   }
 }
-.el-main {
-  background-color: rgb(233, 237, 240);
-}
+// .el-main {
+//   // background-color: rgb(233, 237, 240);
+// }
 
 .iconfont {
   margin-right: 10px;

@@ -18,6 +18,7 @@ import Administrator from './components/Administrator/AdminHome.vue'
 import Welcome from './components/Administrator/Welcome.vue'
 import Main from './components/Administrator/Main.vue'
 import Edit from './components/Administrator/Edit.vue'
+import EditLunBo from './components/Administrator/EditLunBo.vue'
 
 
 Vue.use(Router)
@@ -31,7 +32,8 @@ const router = new Router({
       children: [{ path:'welcome',component:Welcome },
                 { path:'main',component:Main },
                 { path:'edit',component:Edit },
-                { path:'news',component:News },] 
+                { path:'news',component:News },
+                { path:'editlunbo',component:EditLunBo }] 
     },
     { 
       path: '/home', 

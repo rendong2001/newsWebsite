@@ -5,8 +5,8 @@
         <div class="block marr10">
           <el-carousel height="460px"  arrow="always" :interval="3000">
             <el-carousel-item v-for="(item,index) in imgList" :key="index">
-              <div>
-                <img :src="item.path"  alt="" style="width:105%;">
+              <div @click="gonew(item.id)" class="cursor">
+                <img :src="'http://localhost:8080/'+item.picturePath"  alt="" style="width:105%;">
               </div>
             </el-carousel-item>
           </el-carousel>
@@ -35,16 +35,42 @@ import work from '../../views/work.vue'
 import school from '../../views/school.vue'
 import other from '../../views/other.vue'
 
+import {getNewsList} from '../../api/api'
+
 export default {
   components: { notice, work, school, other },
   name: 'index',
   data(){
     return{
-      imgList:[
-        { path:require('../../assets/1.jpg'),index: 1},
-        { path:require('../../assets/2.jpg'),index: 2},
-        { path:require('../../assets/3.jpg'),index: 3},
-      ]
+      // imgList:[
+      //   { path:require('../../assets/1.jpg'),index: 1},
+      //   { path:require('../../assets/2.jpg'),index: 2},
+      //   { path:require('../../assets/3.jpg'),index: 3},
+      // ],
+      imgList:[],
+    }
+  },
+  created(){
+    this.getnews()
+  },
+  methods:{
+    getnews(){
+      const data ={
+        current:1,
+        newsCategoryId:45,
+        size:3
+      }
+      getNewsList(data).then(res => {
+        console.log(res);
+        if(res.code == 200){
+          this.imgList = res.data.records
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    gonew(id){
+      this.$router.push({path:'/home/news',query:{id:id}})
     }
   }
 }

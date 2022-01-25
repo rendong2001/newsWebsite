@@ -69,3 +69,22 @@ li{
 .cursor{
   cursor: pointer;
 }
+.hr{
+  margin: 2px 0;
+  height: 1px;
+  border: none;
+  border-top: 1px;
+}
+.name {
+  font-family: STHeiti;
+  font-size: 30px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.namehr{
+  /* border: 3px solid blue; */
+  height: 2px;
+  background-color: rgb(10, 10, 175);
+  margin-bottom: 20px;
+}

@@ -14,13 +14,16 @@
       </el-col>
        <!-- 新闻内容 -->
       <el-card class="box-card">
-        <el-col :span="18">
+        <p class="name">{{this.cont}}</p>
+        <hr class="namehr">
+        <el-col :span="24">
           <div>
             <el-row class="marb10" :key="index" v-for="(item, index) in newsList">
               <div class="flex-v flex-between marb5 cursor" @click="show(item)">
                 <div>{{ item.title }}</div>
                 <div>{{ item.releaseTime }}</div>
               </div>
+              <el-divider class="hr"></el-divider>
             </el-row>
           </div>
           <!-- 分页 -->
@@ -51,7 +54,7 @@ export default {
       cont: '',
       menuList: [],
       newsList:[],
-      pageSize:2,
+      pageSize:5,
       currentPage:1,
       total:0,
       item:{},
@@ -65,6 +68,7 @@ export default {
   watch: {
     menuList(n,o){
       this.cont =  this.menuList[0].name
+      this.item = this.menuList[0];
       this.getnews(this.menuList[0]);
     }
   },
@@ -131,11 +135,11 @@ ul {
   color: #000;
 }
 .box-card{
-  height: 600px;
+  height: 500px;
   position: relative;
   .fenye{
     position: absolute;
-    bottom: 2px;
+    bottom: 10px;
   }
 } 
 </style>

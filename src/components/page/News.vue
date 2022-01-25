@@ -6,7 +6,7 @@
       <p>发布日期：{{ releaseTime }} 点击量：[ {{hits}} ]</p>
     </div>
     <hr>
-    <div v-html="content"></div>
+    <div v-html="content" class="content"></div>
   </div>
 </template>
 <script>
@@ -40,6 +40,10 @@ export default {
 }
 </script>
 <style>
+.box {
+  width: 1200px;
+  margin: 0 auto;
+}
 .header h2{
   color: rgb(3, 73, 144);
   text-align: center;
@@ -50,8 +54,7 @@ export default {
   height: 35px;
   line-height: 35px;
 }
-.box {
-  width: 1200px;
-  margin: 0 auto;
-}
+/* .content span{
+  background-color: rgb(0, 0, 0);
+} */
 </style>

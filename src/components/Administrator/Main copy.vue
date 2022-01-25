@@ -1,13 +1,12 @@
 <template>
   <div>
     <!-- 级联选择器 -->
-    <div class="block">
+     <div class="block">
       <el-cascader
         v-model="value"
         :options="options"
         clearable
         filterable
-        :getCheckedNodes="true"
         @change="handleChange">
       </el-cascader>
     </div>
@@ -20,19 +19,19 @@
           </el-col>
           <el-col :span="10">
             <!-- 新闻搜索 -->
-            <el-input clearable placeholder="请输入所要查询的新闻标题" v-model="search" class="input-with-select">
+            <el-input clearable @clear="qingKong()" placeholder="请输入所要查询的新闻标题" v-model="fuzzyForm.fuzzytitle" class="input-with-select">
+              <el-button class="btn" slot="append" icon="el-icon-search" @click="fuzzyList(fuzzyForm.fuzzytitle)"></el-button>
             </el-input>
           </el-col>
         </el-row>
         <!-- 新闻表格区域 -->
-        <el-table 
-          :data="tableData.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
-          border 
-          style="width: 100%" 
-          :header-cell-style="{textAlign: 'center'}" 
-          :cell-style="{ textAlign: 'center' }"
+        <el-table v-show="gettable" :data="tableData" border style="width: 100%" :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }"
         >
-          <el-table-column type="index" label="序号" width="50">
+          <!-- :header-cell-style="{textAlign: 'center'}"设置头部居中： -->
+          <!-- :cell-style="{ textAlign: 'center' }"设置整个表格内容水平居中： -->
+          <!-- 问题：怎么获取数组中每个对象的key值（每条新闻的id）?
+               解决：通过作用域插槽 slot-scope 获取每个对象 -->
+          <el-table-column type="index">
             <template slot-scope="scope">
               <span>{{ (currentPage-1)*pageSize+scope.$index+1 }}</span>
             </template>
@@ -55,11 +54,36 @@
             
           </el-table-column>
         </el-table>
+        <!-- 模糊查询的表格显示 -->
+        <el-table v-show="fuzzytable" :data="fuzzytableData" border style="width: 100%" :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
+          <el-table-column type="index">
+            <template slot-scope="scope">
+              <span>{{ (fuzzyForm.fuzzycurrent-1)*fuzzyForm.fuzzysize+scope.$index+1 }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="releaseTime" label="日期" width="" >
+          </el-table-column>
+          <el-table-column prop="title" label="新闻标题" width="">
+          </el-table-column>
+          <el-table-column prop="id" label="id" width="">
+          </el-table-column>
+          <el-table-column label="操作" width="">
+            <template slot-scope="scope">
+              <div>
+                <el-button type="success" @click="look(scope.row.id)">查看</el-button>
+                <el-button type="warning" @click="showEditDialog(scope.row.id)">修改</el-button>
+                <el-button type="info" @click="deleteNews(scope.row.id)">删除</el-button>
+              </div>
+            </template>
+            
+          </el-table-column>
+        </el-table>
         <!-- 分页 -->
         <div>
           <!-- 获取新闻列表分页 -->
           <div>
             <el-pagination
+              v-show="getShow"
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="currentPage"
@@ -67,6 +91,19 @@
               :page-size="100"
               layout="total, sizes, prev, pager, next, jumper"
               :total="total">
+            </el-pagination>
+          </div>
+          <!-- 模糊新闻列表分页 -->
+          <div>
+            <el-pagination
+              v-show="fuzzyShow"
+              @size-change="handleSizeChangefuzzy"
+              @current-change="handleCurrentChangefuzzy"
+              :current-page="fuzzyForm.fuzzycurrent"
+              :page-sizes="[6,10, 18,]"
+              :page-size="100"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="fuzzyForm.fuzzytotal">
             </el-pagination>
           </div>
         </div>
@@ -86,13 +123,7 @@
             <el-input v-model="editForm.title"></el-input>
           </el-form-item>
           <el-form-item label="发布日期:">
-            <el-date-picker 
-              v-model="editForm.releaseTime" 
-              type="date" 
-              placeholder="请选择发布日期"
-              format="yyyy 年 MM 月 dd 日"
-              value-format="yyyy-MM-dd"
-            ></el-date-picker>
+            <el-date-picker v-model="editForm.releaseTime" type="date" placeholder="请选择发布日期"></el-date-picker>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -109,7 +140,6 @@ import { getNewsList,getnew,update,deleteNew,fuzzy } from '../../api/api'
 export default {
   data() {
     return {
-      search:'',
       getShow:true, //获取分页的显示(布尔值)
       gettable:true,  //获取表格的显示
       visible: false,
@@ -139,10 +169,6 @@ export default {
         {
           value:44,
           label: '学院动态',
-        },
-        {
-          value:45,
-          label: '轮播图',
         }],
       },{
           value: 22,
@@ -227,7 +253,6 @@ export default {
     handleChange(value) {
       // console.log(value);
       // console.log(value[1]);
-      this.currentPage = 1;
       this.newsCategoryId = value[1]; //将得到的小标题id存放起来
       this.query(this.newsCategoryId);
     },
@@ -368,20 +393,6 @@ export default {
     },
     //去往添加编辑页面
     goEdit(id){
-      let title = '';
-      console.log(this.value);
-      if (this.value.length = 2) {
-        let t = this.value[0];
-        let i = this.value[1];
-        this.options.forEach( item => {
-          if(item.value == t){
-            title += item.label+'/'
-            item.children.forEach( e => {
-              if(e.value == i) title += e.label;
-            })
-          }
-        })
-      }
       if (this.newsCategoryId==27&&this.total==1||this.newsCategoryId==28&&this.total==1||this.newsCategoryId==29&&this.total==1||
       this.newsCategoryId==30&&this.total==1||this.newsCategoryId==31&&this.total==1) {
         this.$message.error('该新闻标题下只能存在一篇新闻')
@@ -390,15 +401,11 @@ export default {
       this.newsCategoryId==38||this.newsCategoryId==39||this.newsCategoryId==40||
       this.newsCategoryId==41||this.newsCategoryId==42||this.newsCategoryId==43||
       this.newsCategoryId==44){
-        this.$router.push({path:'/administrator/edit',query:{id:id,title:title}})
+        this.$router.push({path:'/administrator/edit',query:{id:id}})
         console.log(this.newsCategoryId);
-      }else if(this.newsCategoryId==45){
-        this.$router.push({path:'/administrator/editlunbo',query:{id:id,title:title}})
-        // console.log(this.newsCategoryId);
       }else{
         this.$message.error('请先选择新闻标题')
-      }
- 
+      } 
     }
   },
 }

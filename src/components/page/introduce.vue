@@ -91,6 +91,7 @@ export default {
         // console.log(res);
         if(res.code == 200){
           this.new = res.data;
+          console.log(this.new.content);
         }
       }).catch(error => {
         console.log(error);
@@ -108,9 +109,6 @@ ul {
     line-height: 50px;
     text-align: center;
   }
-}
-.box-card{
-  // background-color: rgb(131, 212, 115);
 }
 .ft-blue {
   color: rgb(9, 143, 252);

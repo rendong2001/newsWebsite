@@ -1,21 +1,8 @@
 <template>
   <div class="box">
-    <el-row><h3 style="margin-top: 0px">{{ $route.query.title }}</h3></el-row>
+    <el-row>{{ $route.query.title }}</el-row>
     新闻标题：<el-input v-model="title" placeholder="请输入新闻标题"></el-input><br/><br/>
     发布日期：<el-date-picker  format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" v-model="releaseTime" placeholder="请选择新闻发布日期"></el-date-picker><br/><br/>
-    <!-- <el-upload
-      class="upload-demo"
-      ref="upload"
-      drag
-      action
-      :auto-upload="false"
-      :http-request="httpRequest"
-      multiple
-      :file-list="fileList">
-      <i class="el-icon-upload"></i>
-      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-      <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-    </el-upload><br/> -->
     新闻内容：<quill-editor ref="text" v-model="content" class="myQuillEditor" :options="editorOption" />
     <el-row style="margin-top:50px;">
       <el-button  type="success" @click="submit">发布</el-button>
@@ -54,33 +41,7 @@ export default {
     this.newsCategoryId = this.$route.query.id
   },
   methods:{
-    // jsonData(formData){ var jsonData = {}; formData.forEach((value, key) => jsonData[key] = value); return jsonData },
-    // httpRequest(params){
-    //   const pictureFile = params.file;
-    //   const newsCategoryId = this.newsCategoryId;
-    //   const content = this.content;
-    //   const title = this.title;
-    //   const releaseTime = this.releaseTime;
-    //   var formData = new FormData();
-    //   formData.append("pictureFile",pictureFile)
-    //   formData.append("newsCategoryId",newsCategoryId)
-    //   formData.append("content",content)
-    //   formData.append("title",title)
-    //   formData.append("releaseTime",releaseTime)
-    //   console.log(this.jsonData(formData));
-    //   add(this.jsonData(formData)).then(res => {
-    //     console.log(res);
-    //     if(res.code !== 200){
-    //       return this.$message.error('发布新闻失败，请重试！')
-    //     }else{
-    //       this.$message.success('新闻发布成功！')
-    //       console.log(this.content);
-    //       this.$router.go(-1)
-    //     }
-    //   })
-    // },
     submit(){
-      // this.$refs.upload.submit();
       const data = {
         newsCategoryId:this.newsCategoryId,
         content:this.content,
