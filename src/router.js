@@ -19,6 +19,8 @@ import Welcome from './components/Administrator/Welcome.vue'
 import Main from './components/Administrator/Main.vue'
 import Edit from './components/Administrator/Edit.vue'
 import EditLunBo from './components/Administrator/EditLunBo.vue'
+import AdMain from './components/Administrator/AdMain.vue'
+import AdEdit from './components/Administrator/AdEdit.vue'
 
 
 Vue.use(Router)
@@ -33,7 +35,9 @@ const router = new Router({
                 { path:'main',component:Main },
                 { path:'edit',component:Edit },
                 { path:'news',component:News },
-                { path:'editlunbo',component:EditLunBo }] 
+                { path:'editlunbo',component:EditLunBo },
+                { path:'admain',component:AdMain },
+                { path:'adedit',component:AdEdit }] 
     },
     { 
       path: '/home', 
@@ -115,10 +119,15 @@ router.beforeEach((to, from, next) => {
   // from 代表从哪个路径跳转而来
   // next 是一个函数，表示放行
   //     next()  放行    next('/login')  强制跳转
-
-  if (to.path === '/login') return next()
+  // if (to.path === '/administrator/main' && !tokenStr) return next()
+  // if (to.path === '/home/index') return next()
   // 获取token
   const tokenStr = window.sessionStorage.getItem('token')
+  if (to.path === '/administrator/main' && !tokenStr) return next('/login')
+  if (to.path === '/administrator/admain' && !tokenStr) return next('/login')
+  if (to.path === '/administrator' && !tokenStr) return next('/login')
+  if (to.path === '/administrator/edit' && !tokenStr) return next('/login')
+  if (to.path === '/administrator/welcome' && !tokenStr) return next('/login')
   // if (!tokenStr) return next('/login')
   next()
 })

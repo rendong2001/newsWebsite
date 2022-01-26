@@ -63,3 +63,26 @@ export const add = data => {
     params:data
   })
 }
+//登录
+export const login = data => {
+  return request({
+    method:'POST',
+    url:'/login',
+    params:data
+  })
+}
+//获取普通管理员列表
+export const getmain = () => {
+  return request({
+    method: 'GET',
+    url:'/admin/list'
+  })
+}
+//超管修改普管账号密码
+export const editAccount = data => {
+  return request({
+    method:'POST',
+    url:'/admin/updatePassword',
+    params:data
+  })
+}

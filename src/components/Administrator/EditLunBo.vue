@@ -6,7 +6,8 @@
     <el-upload
       class="upload-demo"
       drag
-      action="https://jsonplaceholder.typicode.com/posts/"
+      action="http://localhost:8080//news/add"
+      :on-remove="handleRemove"
       multiple>
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -50,12 +51,16 @@ export default {
     this.newsCategoryId = this.$route.query.id
   },
   methods:{
+    handleRemove(file,fileList){
+      console.log(file,fileList);
+    },
     submit(){
       const data = {
         newsCategoryId:this.newsCategoryId,
         content:this.content,
         title:this.title,
-        releaseTime:this.releaseTime
+        releaseTime:this.releaseTime,
+        pictureFile:this.file,
       }
       add(data).then(res => {
         console.log(res);

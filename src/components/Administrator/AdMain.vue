@@ -12,6 +12,9 @@
           @change="handleChange">
         </el-cascader>
       </el-col>
+      <el-col :span="5">
+        <el-button type="primary" icon="el-icon-edit" @click="goAdEdit()">点击对普通管理员进行管理</el-button>
+      </el-col>
     </el-row>
     <div>
       <el-card class="box-card">
@@ -226,6 +229,10 @@ export default {
           done();
         })
         .catch(_ => {});
+    },
+    //跳转普通管理列表
+    goAdEdit(){
+      this.$router.push({path:'adedit'})
     },
     //级联选择器的方法
     handleChange(value) {

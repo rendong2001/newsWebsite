@@ -116,7 +116,7 @@ export default {
     show(item){
       // console.log(item.id);
       this.$router.push({path:'/home/news',query:{id:item.id}})
-    }
+    },
   }
 }
 </script>
