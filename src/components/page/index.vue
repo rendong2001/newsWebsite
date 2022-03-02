@@ -3,10 +3,10 @@
     <!-- 首页上半部分 -->
     <el-row type="flex" class="row-bg" justify="space-between">
         <div class="block marr10">
-          <el-carousel height="460px"  arrow="always" :interval="3000">
+          <el-carousel height="450px"  arrow="always" :interval="3000">
             <el-carousel-item v-for="(item,index) in imgList" :key="index">
-              <div @click="gonew(item.id)" class="cursor">
-                <img :src="'http://localhost:8080/'+item.picturePath"  alt="" style="width:105%;">
+              <div @click="gonew(item.id)" class="cursor" style="width:590px; height:450px">
+                <img :src="'http://localhost:7070/'+item.picturePath"  alt="" style="width:100%; height:90%">
               </div>
             </el-carousel-item>
           </el-carousel>

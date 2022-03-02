@@ -3,10 +3,10 @@
     <!-- <p>{{ this.$route.query.id }}</p> -->
     <div class="header">
       <h2>{{ title }}</h2>
-      <p>发布日期：{{ releaseTime }} 点击量：[ {{hits}} ]</p>
+      <p>发布日期：{{ releaseTime }} 点击量：[ {{(hits+1)/2}} ]</p>
     </div>
     <hr>
-    <div v-html="content"></div>
+    <div v-html="content" class="ql-editor"></div>
   </div>
 </template>
 <script>
@@ -53,5 +53,12 @@ export default {
   text-align: center;
   height: 35px;
   line-height: 35px;
+}
+.ql-editor{
+  padding: 12px 0px !important;
+}
+.ql-editor img{
+  width: 600px;
+  height: 400px;
 }
 </style>

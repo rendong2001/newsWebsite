@@ -15,7 +15,7 @@
        <!-- 新闻内容 -->
       <el-card class="box-card">
         <el-col>
-          <div v-html="this.new.content"></div>
+          <div v-html="this.new.content" class="ql-editor"></div>
         </el-col>
       </el-card>
     </el-row>
@@ -115,5 +115,8 @@ ul {
 }
 .ft-black {
   color: #000;
+}
+.ql-editor{
+  padding: 12px 0px !important;
 }
 </style>

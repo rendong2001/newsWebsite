@@ -45,7 +45,7 @@ export default {
     // this.getNavArr();
   },
   mounted() {
-    let api3 = 'http://localhost:8080/news_type/all'
+    let api3 = 'http://localhost:7070/news_type/all'
     axios.get(api3).then((res)=>{
       // console.log(res);
       this.menuList2 = res.data.data
