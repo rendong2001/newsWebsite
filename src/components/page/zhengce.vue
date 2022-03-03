@@ -55,7 +55,7 @@ export default {
       cont: '', //小标题变色
       menuList: [],
       newsList:[],
-      pageSize:5,
+      pageSize:6,
       currentPage:1,
       total:0,
       item:{},

@@ -54,7 +54,7 @@ export default {
       cont: '',
       menuList: [],
       newsList:[],
-      pageSize:5,
+      pageSize:6,
       currentPage:1,
       total:0,
       item:{},

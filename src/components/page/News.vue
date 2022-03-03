@@ -57,6 +57,10 @@ export default {
 .ql-editor{
   padding: 12px 0px !important;
 }
+.ql-editor p{
+  letter-spacing: 1px;
+  line-height: 25px;
+}
 .ql-editor img{
   width: 600px;
   height: 400px;
