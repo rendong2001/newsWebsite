@@ -1,0 +1,16 @@
+导入数据库文件
+
+source .sql文件的绝对路径;
+
+
+
+
+部署jar包
+
+cmd 进入到jar目录下执行
+
+```java
+ java -jar school-of-journalism-and-communication-website-0.0.1-SNAPSHOT.jar
+```
+
+等待程序运行（hint：关闭cmd窗口会终止程序运行）
