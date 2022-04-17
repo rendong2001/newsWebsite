@@ -6,13 +6,13 @@
         <img src="../assets/xiaohui4.png" alt="" />
       </div>
       <div>
-        <img src="../assets/bg.png" alt="">
+        <img src="../assets/bg.png" alt="" />
       </div>
     </el-header>
     <!-- 主页导航栏 -->
     <el-row>
       <el-menu mode="horizontal" background-color="rgb(64, 112, 186)" text-color="white" class="menu" active-text-color="#000000" :default-active="activeIndex" @select="handleSelect">
-        <el-menu-item :key="index" v-for="(item, index) in menuList" :index="(item.id).toString()">
+        <el-menu-item :key="index" v-for="(item, index) in menuList" :index="item.id.toString()">
           {{ item.name }}
         </el-menu-item>
       </el-menu>
@@ -28,17 +28,25 @@
 </template>
 
 <script>
-import {getNavList} from '../api/api'
+import { getNavList } from '../api/api'
 import axios from 'axios'
 export default {
   name: '',
   data() {
     return {
       activeIndex: '1',
-      menuList: [{name: '首页',id: 1},{name: '科协概况',id: 22},{name: '政策法规',id: 23},{name: '科协项目',id: 24},
-      {name: '学术交流',id: 25},{name: '办事指南',id: 26},{name: '科普风采',id: 27},{name: '学校首页',id: 28},
-      {name: '联系我们',id: 29}],
-      menuList2:[]
+      menuList: [
+        { name: '首页', id: 1 },
+        { name: '科协概况', id: 22 },
+        { name: '政策法规', id: 23 },
+        { name: '科协项目', id: 24 },
+        { name: '学术交流', id: 25 },
+        { name: '办事指南', id: 26 },
+        { name: '科普风采', id: 27 },
+        { name: '学校首页', id: 28 },
+        { name: '联系我们', id: 29 }
+      ],
+      menuList2: []
     }
   },
   created() {
@@ -46,12 +54,15 @@ export default {
   },
   mounted() {
     let api3 = 'http://localhost:7070/news_type/all'
-    axios.get(api3).then((res)=>{
-      // console.log(res);
-      this.menuList2 = res.data.data
-    }).catch((error)=>{
-      console.log(error);
-    })
+    axios
+      .get(api3)
+      .then(res => {
+        // console.log(res);
+        this.menuList2 = res.data.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
   watch: {},
   methods: {
@@ -68,9 +79,9 @@ export default {
     //     console.log('err', err)
     //   })
     // },
-    
-    formatterTitle(t){
-      switch(t){
+
+    formatterTitle(t) {
+      switch (t) {
         case '1':
           return 'index'
         case '22':
@@ -99,7 +110,7 @@ export default {
           path: '/home/' + this.formatterTitle(key),
           query: {
             title: this.formatterTitle(key),
-            id:key
+            id: key
           }
         })
       }

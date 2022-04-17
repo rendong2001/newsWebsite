@@ -7,11 +7,9 @@
 <script>
 import globalTitle from '../globalTitle.vue'
 export default {
-  components: { globalTitle},
+  components: { globalTitle },
   name: 'xueXiaoShouYe'
 }
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

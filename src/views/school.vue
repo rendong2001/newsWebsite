@@ -2,9 +2,7 @@
   <div>
     <el-row type="flex" justify="space-between" class="underline">
       <span class="color"><b>学院动态</b></span>
-      <span @click="goMore('学院动态')" class="liPointer"
-        >更多<i class="el-icon-d-arrow-right"></i>
-      </span>
+      <span @click="goMore('学院动态')" class="liPointer">更多<i class="el-icon-d-arrow-right"></i> </span>
     </el-row>
     <div style="max-height:420px;overflow:hidden;">
       <ul>
@@ -18,39 +16,41 @@
   </div>
 </template>
 <script>
-import {getNewsList} from '../api/api'
+import { getNewsList } from '../api/api'
 export default {
   name: 'school',
   data() {
     return {
-      schoolList: [],
+      schoolList: []
     }
   },
   created() {
     this.getnews()
   },
-  methods:{
-    getnews(){
+  methods: {
+    getnews() {
       const data = {
-        current:1,
-        newsCategoryId:44,
-        size:6
+        current: 1,
+        newsCategoryId: 44,
+        size: 6
       }
-      getNewsList(data).then(res => {
-        console.log(res);
-        if(res.code == 200){
-          this.schoolList = res.data.records
-        }
-      }).catch(error => {
-        console.log(error);
-      })
+      getNewsList(data)
+        .then(res => {
+          console.log(res)
+          if (res.code == 200) {
+            this.schoolList = res.data.records
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     //前往更多信息页面
-    goMore(val){
+    goMore(val) {
       this.$router.push({
-        path:'moreMessage',
-        query:{
-          type:val,
+        path: 'moreMessage',
+        query: {
+          type: val
         }
       })
     },
@@ -59,7 +59,7 @@ export default {
       this.$router.push({
         path: '/home/news',
         query: {
-          id:id
+          id: id
         }
       })
     }

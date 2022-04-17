@@ -18,18 +18,16 @@
 <script>
 export default {
   data() {
-    return {
-    }
+    return {}
   },
-  created() {
-  },
+  created() {},
   methods: {
     logout() {
       //清空token
       window.sessionStorage.clear()
       //跳转到登录页
       this.$router.push('/login')
-    },
+    }
   }
 }
 </script>

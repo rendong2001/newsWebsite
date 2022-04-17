@@ -1,14 +1,8 @@
 <template>
   <div>
     <!-- 级联选择器 -->
-     <div class="block">
-      <el-cascader
-        v-model="value"
-        :options="options"
-        clearable
-        filterable
-        @change="handleChange">
-      </el-cascader>
+    <div class="block">
+      <el-cascader v-model="value" :options="options" clearable filterable @change="handleChange"> </el-cascader>
     </div>
     <div>
       <el-card class="box-card">
@@ -25,23 +19,19 @@
           </el-col>
         </el-row>
         <!-- 新闻表格区域 -->
-        <el-table v-show="gettable" :data="tableData" border style="width: 100%" :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }"
-        >
+        <el-table v-show="gettable" :data="tableData" border style="width: 100%" :header-cell-style="{ textAlign: 'center' }" :cell-style="{ textAlign: 'center' }">
           <!-- :header-cell-style="{textAlign: 'center'}"设置头部居中： -->
           <!-- :cell-style="{ textAlign: 'center' }"设置整个表格内容水平居中： -->
           <!-- 问题：怎么获取数组中每个对象的key值（每条新闻的id）?
                解决：通过作用域插槽 slot-scope 获取每个对象 -->
           <el-table-column type="index">
             <template slot-scope="scope">
-              <span>{{ (currentPage-1)*pageSize+scope.$index+1 }}</span>
+              <span>{{ (currentPage - 1) * pageSize + scope.$index + 1 }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="releaseTime" label="日期" width="" >
-          </el-table-column>
-          <el-table-column prop="title" label="新闻标题" width="">
-          </el-table-column>
-          <el-table-column prop="id" label="id" width="">
-          </el-table-column>
+          <el-table-column prop="releaseTime" label="日期" width=""> </el-table-column>
+          <el-table-column prop="title" label="新闻标题" width=""> </el-table-column>
+          <el-table-column prop="id" label="id" width=""> </el-table-column>
           <el-table-column label="操作" width="">
             <template slot-scope="scope">
               <!-- {{ scope.row.id }} -->
@@ -51,22 +41,18 @@
                 <el-button type="info" @click="deleteNews(scope.row.id)">删除</el-button>
               </div>
             </template>
-            
           </el-table-column>
         </el-table>
         <!-- 模糊查询的表格显示 -->
-        <el-table v-show="fuzzytable" :data="fuzzytableData" border style="width: 100%" :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
+        <el-table v-show="fuzzytable" :data="fuzzytableData" border style="width: 100%" :header-cell-style="{ textAlign: 'center' }" :cell-style="{ textAlign: 'center' }">
           <el-table-column type="index">
             <template slot-scope="scope">
-              <span>{{ (fuzzyForm.fuzzycurrent-1)*fuzzyForm.fuzzysize+scope.$index+1 }}</span>
+              <span>{{ (fuzzyForm.fuzzycurrent - 1) * fuzzyForm.fuzzysize + scope.$index + 1 }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="releaseTime" label="日期" width="" >
-          </el-table-column>
-          <el-table-column prop="title" label="新闻标题" width="">
-          </el-table-column>
-          <el-table-column prop="id" label="id" width="">
-          </el-table-column>
+          <el-table-column prop="releaseTime" label="日期" width=""> </el-table-column>
+          <el-table-column prop="title" label="新闻标题" width=""> </el-table-column>
+          <el-table-column prop="id" label="id" width=""> </el-table-column>
           <el-table-column label="操作" width="">
             <template slot-scope="scope">
               <div>
@@ -75,7 +61,6 @@
                 <el-button type="info" @click="deleteNews(scope.row.id)">删除</el-button>
               </div>
             </template>
-            
           </el-table-column>
         </el-table>
         <!-- 分页 -->
@@ -87,10 +72,11 @@
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="currentPage"
-              :page-sizes="[6,12, 18,]"
+              :page-sizes="[6, 12, 18]"
               :page-size="100"
               layout="total, sizes, prev, pager, next, jumper"
-              :total="total">
+              :total="total"
+            >
             </el-pagination>
           </div>
           <!-- 模糊新闻列表分页 -->
@@ -100,22 +86,19 @@
               @size-change="handleSizeChangefuzzy"
               @current-change="handleCurrentChangefuzzy"
               :current-page="fuzzyForm.fuzzycurrent"
-              :page-sizes="[6,10, 18,]"
+              :page-sizes="[6, 10, 18]"
               :page-size="100"
               layout="total, sizes, prev, pager, next, jumper"
-              :total="fuzzyForm.fuzzytotal">
+              :total="fuzzyForm.fuzzytotal"
+            >
             </el-pagination>
           </div>
         </div>
       </el-card>
       <!-- 修改新闻的对话框 -->
-      <el-dialog
-        title="修改新闻"
-        :visible.sync="editDialogVisible"
-        width="50%"
-        :before-close="handleClose">
+      <el-dialog title="修改新闻" :visible.sync="editDialogVisible" width="50%" :before-close="handleClose">
         <!-- rules表单验证规则，ref当前表单的验证对象 -->
-        <el-form ref="editFormRef" :model="editForm"  label-width="80px" status-icon>
+        <el-form ref="editFormRef" :model="editForm" label-width="80px" status-icon>
           <el-form-item label="id:">
             <el-input v-model="editForm.id" disabled></el-input>
           </el-form-item>
@@ -136,199 +119,214 @@
 </template>
 
 <script>
-import { getNewsList,getnew,update,deleteNew,fuzzy } from '../../api/api'
+import { getNewsList, getnew, update, deleteNew, fuzzy } from '../../api/api'
 export default {
   data() {
     return {
-      getShow:true, //获取分页的显示(布尔值)
-      gettable:true,  //获取表格的显示
+      getShow: true, //获取分页的显示(布尔值)
+      gettable: true, //获取表格的显示
       visible: false,
-      editDialogVisible:false,  //控制修改对话框的布尔值
-      editForm:{},  //查询到的新闻对象，目前仅供修改使用
-      newsCategoryId:1, //先存一个小标题id
-      tableData:[],   //新闻列表对象
-      fuzzytableData:[],  //模糊查询列表对象
-      pageSize:6,     //每页条数
-      currentPage:1,  //当前页
-      total:0,        //新闻总条数
-      fuzzyShow:false,  //模糊查询分页的显示(布尔值)
-      fuzzytable:false, //模糊查询表格的显示
-      fuzzyForm:{ fuzzytitle:'',fuzzytotal:0,fuzzycurrent:1,fuzzysize:6 },  //模糊查询列表对象
+      editDialogVisible: false, //控制修改对话框的布尔值
+      editForm: {}, //查询到的新闻对象，目前仅供修改使用
+      newsCategoryId: 1, //先存一个小标题id
+      tableData: [], //新闻列表对象
+      fuzzytableData: [], //模糊查询列表对象
+      pageSize: 6, //每页条数
+      currentPage: 1, //当前页
+      total: 0, //新闻总条数
+      fuzzyShow: false, //模糊查询分页的显示(布尔值)
+      fuzzytable: false, //模糊查询表格的显示
+      fuzzyForm: { fuzzytitle: '', fuzzytotal: 0, fuzzycurrent: 1, fuzzysize: 6 }, //模糊查询列表对象
       value: [],
-      options: [{
-        value: 1,
-        label: '首页',
-        children: [{
-          value:42,
-          label: '通知公告',
-        }, 
+      options: [
         {
-          value:43,
-          label: '工作动态',
+          value: 1,
+          label: '首页',
+          children: [
+            {
+              value: 42,
+              label: '通知公告'
+            },
+            {
+              value: 43,
+              label: '工作动态'
+            },
+            {
+              value: 44,
+              label: '学院动态'
+            }
+          ]
         },
         {
-          value:44,
-          label: '学院动态',
-        }],
-      },{
           value: 22,
           label: '科协概况',
-          children: [{
-            value:27,
-            label: '简介',
-          }, 
-          {
-            value:28,
-            label: '章程',
-          },
-          {
-            value:29,
-            label: '组织结构',
-          },
-          {
-            value:30,
-            label: '工作职责',
-          },
-          {
-            value:31,
-            label: '专职人员',
-          }],
+          children: [
+            {
+              value: 27,
+              label: '简介'
+            },
+            {
+              value: 28,
+              label: '章程'
+            },
+            {
+              value: 29,
+              label: '组织结构'
+            },
+            {
+              value: 30,
+              label: '工作职责'
+            },
+            {
+              value: 31,
+              label: '专职人员'
+            }
+          ]
         },
         {
           value: 23,
           label: '政策法规',
-          children: [{
-            value:35,
-            label: '中国科协政策文件',
-          }, 
-          {
-            value:36,
-            label: '地方科协政策文件',
-          },
-          {
-            value:37,
-            label: '社团管理文件',
-          }],
+          children: [
+            {
+              value: 35,
+              label: '中国科协政策文件'
+            },
+            {
+              value: 36,
+              label: '地方科协政策文件'
+            },
+            {
+              value: 37,
+              label: '社团管理文件'
+            }
+          ]
         },
         {
           value: 25,
           label: '学术交流',
-          children: [{
-            value:38,
-            label: '学术信息',
-          }, 
-          {
-            value:39,
-            label: '科技竞赛',
-          }],
+          children: [
+            {
+              value: 38,
+              label: '学术信息'
+            },
+            {
+              value: 39,
+              label: '科技竞赛'
+            }
+          ]
         },
         {
           value: 27,
           label: '科普风采',
-          children: [{
-            value:40,
-            label: '平顶山学院科普活动',
-          }, 
-          {
-            value:41,
-            label: '平顶山市政协科普活动',
-          }],
-      }]
+          children: [
+            {
+              value: 40,
+              label: '平顶山学院科普活动'
+            },
+            {
+              value: 41,
+              label: '平顶山市政协科普活动'
+            }
+          ]
+        }
+      ]
     }
   },
-  created(){
-  },
-  mounted(){
-  },
+  created() {},
+  mounted() {},
   methods: {
     //修改对话框关闭的方法
     handleClose(done) {
       this.$confirm('确认关闭？')
         .then(_ => {
-          done();
+          done()
         })
-        .catch(_ => {});
+        .catch(_ => {})
     },
     //级联选择器的方法
     handleChange(value) {
       // console.log(value);
       // console.log(value[1]);
-      this.newsCategoryId = value[1]; //将得到的小标题id存放起来
-      this.query(this.newsCategoryId);
+      this.newsCategoryId = value[1] //将得到的小标题id存放起来
+      this.query(this.newsCategoryId)
     },
-    query(newsCategoryId){
+    query(newsCategoryId) {
       const data = {
-        current:this.currentPage,
-        newsCategoryId:newsCategoryId,
-        size:this.pageSize
-      };
-      getNewsList(data).then(res=>{
-        // console.log(res);
-        if (res.code !== 200) {
-          return this.$message.error('获取新闻列表失败')
-        }else{
-          this.tableData = res.data.records
-          this.total = res.data.total
-        }
-      }).catch(err => {
-        console.log(err);
-      })
+        current: this.currentPage,
+        newsCategoryId: newsCategoryId,
+        size: this.pageSize
+      }
+      getNewsList(data)
+        .then(res => {
+          // console.log(res);
+          if (res.code !== 200) {
+            return this.$message.error('获取新闻列表失败')
+          } else {
+            this.tableData = res.data.records
+            this.total = res.data.total
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     //展示修改对话框
-    showEditDialog(id){
+    showEditDialog(id) {
       getnew(id).then(res => {
         // console.log(res);
         if (res.code == 200) {
           this.editForm = res.data
-        }     
+        }
       })
-      this.editDialogVisible = true;
+      this.editDialogVisible = true
     },
     //确定修改表单提交，验证发起请求
-    editNew(){
+    editNew() {
       const data = {
         id: this.editForm.id,
         releaseTime: this.editForm.releaseTime,
-        title:this.editForm.title
+        title: this.editForm.title
       }
-      update(data).then(res=>{
+      update(data).then(res => {
         // console.log('dsadasas',res);
         if (res.code == 200) {
-          this.editDialogVisible =false;
+          this.editDialogVisible = false
           this.$message.success('修改新闻成功！')
-          this.query(this.newsCategoryId);
+          this.query(this.newsCategoryId)
         }
       })
     },
     //模糊查询
-    fuzzyList(title){
+    fuzzyList(title) {
       // console.log(title);
-      if(title == ''){
-        return  this.$message.error('请先输入查询新闻标题！')
+      if (title == '') {
+        return this.$message.error('请先输入查询新闻标题！')
       }
       this.fuzzyShow = true //模糊分页显示
-      this.getShow = false  //获取分页隐藏
+      this.getShow = false //获取分页隐藏
       this.gettable = false
       this.fuzzytable = true
       const data = {
         current: this.fuzzyForm.fuzzycurrent,
         size: this.fuzzyForm.fuzzysize,
-        title:title
+        title: title
       }
-      fuzzy(data).then(res => {
-        // console.log(res);
-        if (res.code !== 200) {
-          return this.$message.error('查询新闻列表失败')
-        }else{
-          this.fuzzytableData = res.data.records
-          this.fuzzyForm.fuzzytotal = res.data.total
-        }
-      }).catch(err => {
-        console.log(err);
-      })
+      fuzzy(data)
+        .then(res => {
+          // console.log(res);
+          if (res.code !== 200) {
+            return this.$message.error('查询新闻列表失败')
+          } else {
+            this.fuzzytableData = res.data.records
+            this.fuzzyForm.fuzzytotal = res.data.total
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     //清空查询列表内容
-    qingKong(){
+    qingKong() {
       this.tableData = []
       this.fuzzytableData = []
       this.fuzzyForm.fuzzytotal = 0
@@ -338,7 +336,7 @@ export default {
       this.gettable = true
     },
     //根据id删除新闻
-    async deleteNews(id){
+    async deleteNews(id) {
       // console.log(id);
       const res = await this.$confirm('此操作将永久删除该条新闻, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -349,76 +347,93 @@ export default {
       })
       //如果用户点击确定则返回confirm
       //如果用户点击取消则返回cancel
-      console.log(res);
-      if(res !== 'confirm'){
+      console.log(res)
+      if (res !== 'confirm') {
         return this.$message.info('已取消删除~')
-      }else{
-        console.log(id);
+      } else {
+        console.log(id)
         const data = {
-          id:id
+          id: id
         }
         //参数data 要以对象的形式传入
         deleteNew(data).then(res => {
-          console.log('>>>'+res);
-          if(res.code == 200){
+          console.log('>>>' + res)
+          if (res.code == 200) {
             this.$message.success('删除新闻成功！')
-            this.query(this.newsCategoryId);
-          }else{
+            this.query(this.newsCategoryId)
+          } else {
             return this.$message.error('删除新闻失败！')
           }
         })
       }
     },
     //查看
-    look(id){
-      this.$router.push({path:'news',query:{id:id}})
+    look(id) {
+      this.$router.push({ path: 'news', query: { id: id } })
     },
     handleCurrentChange(val) {
       // console.log(`当前页: ${val}`);
-      this.currentPage = val;
+      this.currentPage = val
       this.query(this.newsCategoryId)
     },
     handleSizeChange(val) {
       // console.log(`每页 ${val} 条`);
-      this.pageSize = val;
+      this.pageSize = val
       this.query(this.newsCategoryId)
     },
-    handleCurrentChangefuzzy(val){
+    handleCurrentChangefuzzy(val) {
       this.fuzzyForm.fuzzycurrent = val
       this.fuzzyList(this.fuzzyForm.fuzzytitle) //模糊查询
     },
-    handleSizeChangefuzzy(val){
+    handleSizeChangefuzzy(val) {
       this.fuzzyForm.fuzzysize = val
       this.fuzzyList(this.fuzzyForm.fuzzytitle) //模糊查询
     },
     //去往添加编辑页面
-    goEdit(id){
-      if (this.newsCategoryId==27&&this.total==1||this.newsCategoryId==28&&this.total==1||this.newsCategoryId==29&&this.total==1||
-      this.newsCategoryId==30&&this.total==1||this.newsCategoryId==31&&this.total==1) {
+    goEdit(id) {
+      if (
+        (this.newsCategoryId == 27 && this.total == 1) ||
+        (this.newsCategoryId == 28 && this.total == 1) ||
+        (this.newsCategoryId == 29 && this.total == 1) ||
+        (this.newsCategoryId == 30 && this.total == 1) ||
+        (this.newsCategoryId == 31 && this.total == 1)
+      ) {
         this.$message.error('该新闻标题下只能存在一篇新闻')
-      }else if(this.newsCategoryId==27||this.newsCategoryId==28||this.newsCategoryId==29||this.newsCategoryId==30||
-      this.newsCategoryId==31||this.newsCategoryId == 35||this.newsCategoryId==36||this.newsCategoryId==37||
-      this.newsCategoryId==38||this.newsCategoryId==39||this.newsCategoryId==40||
-      this.newsCategoryId==41||this.newsCategoryId==42||this.newsCategoryId==43||
-      this.newsCategoryId==44){
-        this.$router.push({path:'/administrator/edit',query:{id:id}})
-        console.log(this.newsCategoryId);
-      }else{
+      } else if (
+        this.newsCategoryId == 27 ||
+        this.newsCategoryId == 28 ||
+        this.newsCategoryId == 29 ||
+        this.newsCategoryId == 30 ||
+        this.newsCategoryId == 31 ||
+        this.newsCategoryId == 35 ||
+        this.newsCategoryId == 36 ||
+        this.newsCategoryId == 37 ||
+        this.newsCategoryId == 38 ||
+        this.newsCategoryId == 39 ||
+        this.newsCategoryId == 40 ||
+        this.newsCategoryId == 41 ||
+        this.newsCategoryId == 42 ||
+        this.newsCategoryId == 43 ||
+        this.newsCategoryId == 44
+      ) {
+        this.$router.push({ path: '/administrator/edit', query: { id: id } })
+        console.log(this.newsCategoryId)
+      } else {
         this.$message.error('请先选择新闻标题')
-      } 
+      }
     }
-  },
+  }
 }
 </script>
 
 <style lang="less">
-.add{
+.add {
   margin-bottom: 10px !important;
 }
-.block{
+.block {
   margin-bottom: 10px;
 }
-.el-pagination{
+.el-pagination {
   margin-top: 10px;
 }
 </style>

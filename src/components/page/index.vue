@@ -2,30 +2,30 @@
   <div calss="box">
     <!-- 首页上半部分 -->
     <el-row type="flex" class="row-bg" justify="space-between">
-        <div class="block marr10">
-          <el-carousel height="450px"  arrow="always" :interval="3000">
-            <el-carousel-item v-for="(item,index) in imgList" :key="index">
-              <div @click="gonew(item.id)" class="cursor" style="width:590px; height:450px">
-                <img :src="'http://localhost:7070/'+item.picturePath"  alt="" style="width:100%; height:90%">
-              </div>
-            </el-carousel-item>
-          </el-carousel>
-        </div>
+      <div class="block marr10">
+        <el-carousel height="450px" arrow="always" :interval="3000">
+          <el-carousel-item v-for="(item, index) in imgList" :key="index">
+            <div @click="gonew(item.id)" class="cursor" style="width:590px; height:450px">
+              <img :src="'http://localhost:7070/' + item.picturePath" alt="" style="width:100%; height:90%" />
+            </div>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
       <notice class="notice" />
     </el-row>
     <!-- 首页下半部分 -->
     <el-row type="flex" class="row-bg" justify="space-between">
-      <work class="work"/>
-      <school class="school"/>
-      <other class="other"/>
+      <work class="work" />
+      <school class="school" />
+      <other class="other" />
     </el-row>
 
     <!-- 定位fixed -->
     <div class="fixed1">
-      <a href="#"><img src="../../assets/gzh.jpg" alt=""></a>
+      <a href="#"><img src="../../assets/gzh.jpg" alt=""/></a>
     </div>
     <div class="fixed2">
-      <a href="#"><img src="../../assets/wb.jpg" alt=""></a>
+      <a href="#"><img src="../../assets/wb.jpg" alt=""/></a>
     </div>
   </div>
 </template>
@@ -35,42 +35,44 @@ import work from '../../views/work.vue'
 import school from '../../views/school.vue'
 import other from '../../views/other.vue'
 
-import {getNewsList} from '../../api/api'
+import { getNewsList } from '../../api/api'
 
 export default {
   components: { notice, work, school, other },
   name: 'index',
-  data(){
-    return{
+  data() {
+    return {
       // imgList:[
       //   { path:require('../../assets/1.jpg'),index: 1},
       //   { path:require('../../assets/2.jpg'),index: 2},
       //   { path:require('../../assets/3.jpg'),index: 3},
       // ],
-      imgList:[],
+      imgList: []
     }
   },
-  created(){
+  created() {
     this.getnews()
   },
-  methods:{
-    getnews(){
-      const data ={
-        current:1,
-        newsCategoryId:45,
-        size:3
+  methods: {
+    getnews() {
+      const data = {
+        current: 1,
+        newsCategoryId: 45,
+        size: 3
       }
-      getNewsList(data).then(res => {
-        console.log(res);
-        if(res.code == 200){
-          this.imgList = res.data.records
-        }
-      }).catch(err => {
-        console.log(err);
-      })
+      getNewsList(data)
+        .then(res => {
+          console.log(res)
+          if (res.code == 200) {
+            this.imgList = res.data.records
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    gonew(id){
-      this.$router.push({path:'/home/news',query:{id:id}})
+    gonew(id) {
+      this.$router.push({ path: '/home/news', query: { id: id } })
     }
   }
 }
@@ -86,7 +88,7 @@ export default {
     // object-fit:cover;
   }
 }
-.notice{
+.notice {
   width: 50%;
 }
 .work {
@@ -102,12 +104,12 @@ export default {
 }
 .fixed1 {
   position: fixed;
-  top:270px;
+  top: 270px;
   right: 2px;
 }
 .fixed2 {
   position: fixed;
-  top:340px;
+  top: 340px;
   right: 2px;
 }
 </style>

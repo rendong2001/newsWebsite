@@ -2,7 +2,9 @@
   <div>
     <el-row>
       <div class="fl">
-        <span><b>{{ getTitle(this.$route.query.title) }}</b></span>
+        <span
+          ><b>{{ getTitle(this.$route.query.title) }}</b></span
+        >
       </div>
       <div class="fr">
         <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -16,17 +18,16 @@
 </template>
 <script>
 export default {
-  name:'globalTitle',
-  data(){
+  name: 'globalTitle',
+  data() {
     return {
-      title:'',
+      title: ''
     }
   },
-  created(){
-  },
-  methods:{
-    getTitle(v){
-      switch(v){
+  created() {},
+  methods: {
+    getTitle(v) {
+      switch (v) {
         case 'introduce':
           return '科协概况'
         case 'zhengce':
@@ -50,8 +51,8 @@ export default {
 </script>
 
 <style scoped>
-  .el-row {
-    /* background-color: rgb(83, 168, 125); */
-    border-bottom: 1px solid #0f99e9;
-  }
+.el-row {
+  /* background-color: rgb(83, 168, 125); */
+  border-bottom: 1px solid #0f99e9;
+}
 </style>

@@ -34,7 +34,7 @@ export default {
       loginForm: {
         username: '',
         password: ''
-      },
+      }
     }
   },
   methods: {
@@ -48,16 +48,16 @@ export default {
         password: this.loginForm.password
       }
       login(data).then(res => {
-        console.log(res);
-        if(res.code !== 200){
+        console.log(res)
+        if (res.code !== 200) {
           this.$message.error('登录失败！')
-        }else if(res.data.role == '超级管理员'){
+        } else if (res.data.role == '超级管理员') {
           this.$message.success('超管登录成功！')
-          window.sessionStorage.setItem('token',res.cookie)
+          window.sessionStorage.setItem('token', res.cookie)
           this.$router.push('/administrator/admain')
-        }else{
+        } else {
           this.$message.success('登录成功！')
-          window.sessionStorage.setItem('token',res.cookie)
+          window.sessionStorage.setItem('token', res.cookie)
           this.$router.push('/administrator/main')
         }
       })

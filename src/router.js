@@ -22,94 +22,97 @@ import EditLunBo from './components/Administrator/EditLunBo.vue'
 import AdMain from './components/Administrator/AdMain.vue'
 import AdEdit from './components/Administrator/AdEdit.vue'
 
-
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     { path: '/', redirect: '/home' },
     { path: '/login', component: Login },
-    { path:'/administrator',
+    {
+      path: '/administrator',
       component: Administrator,
-      children: [{ path:'welcome',component:Welcome },
-                { path:'main',component:Main },
-                { path:'edit',component:Edit },
-                { path:'news',component:News },
-                { path:'editlunbo',component:EditLunBo },
-                { path:'admain',component:AdMain },
-                { path:'adedit',component:AdEdit }] 
-    },
-    { 
-      path: '/home', 
-      component: Home ,
-      children:[
-        {
-          path:'/home',
-          redirect:'index'
-        },
-        {
-          path:'index',
-          component:index
-        },
-        {
-          path:'introduce',
-          name:'introduce',
-          component:introduce
-        },
-        {
-          path:'zhengce',
-          name:'zhengce',
-          component:zhengce
-        },
-        {
-          path:'keXieXiangMu',
-          name:'keXieXiangMu',
-          component:keXieXiangMu
-        },
-        {
-          path:'xueShuJiaoLiu',
-          name:'xueShuJiaoLiu',
-          component:xueShuJiaoLiu
-        },
-        {
-          path:'banShiZhiNan',
-          name:'banShiZhiNan',
-          component:banShiZhiNan
-        },
-        {
-          path:'kePuFengCai',
-          name:'kePuFengCai',
-          component:kePuFengCai
-        },
-        {
-          path:'xueXiaoShouYe',
-          name:'xueXiaoShouYe',
-          component:xueXiaoShouYe
-        },
-        {
-          path:'telephone',
-          name:'telephone',
-          component:telephone
-        },
-        {
-          path:'moreMessage',
-          name:'moreMessage',
-          component:moreMessage
-        },
-        {
-          path:'news',
-          name:'News',
-          component:News
-        },
+      children: [
+        { path: 'welcome', component: Welcome },
+        { path: 'main', component: Main },
+        { path: 'edit', component: Edit },
+        { path: 'news', component: News },
+        { path: 'editlunbo', component: EditLunBo },
+        { path: 'admain', component: AdMain },
+        { path: 'adedit', component: AdEdit }
       ]
     },
-    { path:'*',component:NotFound }
+    {
+      path: '/home',
+      component: Home,
+      children: [
+        {
+          path: '/home',
+          redirect: 'index'
+        },
+        {
+          path: 'index',
+          component: index
+        },
+        {
+          path: 'introduce',
+          name: 'introduce',
+          component: introduce
+        },
+        {
+          path: 'zhengce',
+          name: 'zhengce',
+          component: zhengce
+        },
+        {
+          path: 'keXieXiangMu',
+          name: 'keXieXiangMu',
+          component: keXieXiangMu
+        },
+        {
+          path: 'xueShuJiaoLiu',
+          name: 'xueShuJiaoLiu',
+          component: xueShuJiaoLiu
+        },
+        {
+          path: 'banShiZhiNan',
+          name: 'banShiZhiNan',
+          component: banShiZhiNan
+        },
+        {
+          path: 'kePuFengCai',
+          name: 'kePuFengCai',
+          component: kePuFengCai
+        },
+        {
+          path: 'xueXiaoShouYe',
+          name: 'xueXiaoShouYe',
+          component: xueXiaoShouYe
+        },
+        {
+          path: 'telephone',
+          name: 'telephone',
+          component: telephone
+        },
+        {
+          path: 'moreMessage',
+          name: 'moreMessage',
+          component: moreMessage
+        },
+        {
+          path: 'news',
+          name: 'News',
+          component: News
+        }
+      ]
+    },
+    { path: '*', component: NotFound }
   ],
-  scrollBehavior(to, from, savedPosition) { //页面跳转后自动回到顶部
+  scrollBehavior(to, from, savedPosition) {
+    //页面跳转后自动回到顶部
     if (savedPosition) {
-        return savedPosition
+      return savedPosition
     }
-    return {x: 0, y: 0}
+    return { x: 0, y: 0 }
   }
 })
 

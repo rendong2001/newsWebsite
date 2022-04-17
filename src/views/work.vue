@@ -2,9 +2,7 @@
   <div>
     <el-row type="flex" justify="space-between" class="underline row-bg">
       <span class="color"><b>工作动态</b></span>
-      <span @click="goMore('工作状态')" class="liPointer"
-        >更多<i class="el-icon-d-arrow-right"></i>
-      </span>
+      <span @click="goMore('工作状态')" class="liPointer">更多<i class="el-icon-d-arrow-right"></i> </span>
     </el-row>
     <div style="max-height:420px;overflow:hidden;">
       <ul>
@@ -18,47 +16,49 @@
   </div>
 </template>
 <script>
-import {getNewsList} from '../api/api'
+import { getNewsList } from '../api/api'
 export default {
-  name:'work',
-  data(){
-    return{
-      workList: [],
+  name: 'work',
+  data() {
+    return {
+      workList: []
     }
   },
   created() {
     this.getnews()
   },
-  methods:{
+  methods: {
     //获取新闻列表
-    getnews(){
+    getnews() {
       const data = {
-        current:1,
-        newsCategoryId:43,
-        size:6
+        current: 1,
+        newsCategoryId: 43,
+        size: 6
       }
-      getNewsList(data).then(res => {
-        console.log(res);
-        if(res.code == 200){
-          this.workList = res.data.records
-        }
-      }).catch(error => {
-        console.log(error);
-      })
+      getNewsList(data)
+        .then(res => {
+          console.log(res)
+          if (res.code == 200) {
+            this.workList = res.data.records
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     toWorkMsg(id) {
       this.$router.push({
-        path:'/home/news',
+        path: '/home/news',
         query: {
-          id:id,
+          id: id
         }
       })
     },
     goMore(val) {
       this.$router.push({
-        path:'moreMessage',
-        query:{
-          type:val,
+        path: 'moreMessage',
+        query: {
+          type: val
         }
       })
     }

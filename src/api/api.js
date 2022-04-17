@@ -1,6 +1,6 @@
-//用于写接口
+// 用于写接口
 
-import request from "../utils/request";
+import request from '../utils/request'
 // // 导航栏列表
 // export const getNavList = data => {
 //   return request({
@@ -9,53 +9,53 @@ import request from "../utils/request";
 //     params:data,
 //   })
 // }
-//获取小标题
+// 获取小标题
 export const getMinTitle = data => {
   return request({
     method: 'GET',
-    url: `/news_category/list/${data}`,
+    url: `/news_category/list/${data}`
   })
 }
-//获取新闻列表
+// 获取新闻列表
 export const getNewsList = data => {
   return request({
     method: 'POST',
     url: '/news/list',
-    params: data,
+    params: data
   })
 }
-//获取只有一篇新闻
+// 获取只有一篇新闻
 export const getnew = data => {
   return request({
     method: 'GET',
     url: `/news/main/${data}`
   })
 }
-//修改新闻
+// 修改新闻
 export const update = data => {
   return request({
     method: 'POST',
     url: '/news/update',
-    params: data,
+    params: data
   })
 }
-//删除新闻
+// 删除新闻
 export const deleteNew = data => {
   return request({
     method: 'POST',
     url: '/news/delete',
-    params: data,
+    params: data
   })
 }
-//模糊查询
+// 模糊查询
 export const fuzzy = data => {
   return request({
     method: 'POST',
     url: '/news/fuzzy',
-    params: data,
+    params: data
   })
 }
-//添加新闻
+// 添加新闻
 export const add = (data, fd) => {
   return request({
     method: 'POST',
@@ -64,7 +64,7 @@ export const add = (data, fd) => {
     data: fd
   })
 }
-//登录
+// 登录
 export const login = data => {
   return request({
     method: 'POST',
@@ -72,14 +72,14 @@ export const login = data => {
     params: data
   })
 }
-//获取普通管理员列表
+// 获取普通管理员列表
 export const getmain = () => {
   return request({
     method: 'GET',
     url: '/admin/list'
   })
 }
-//超管修改普管账号密码
+// 超管修改普管账号密码
 export const editAccount = data => {
   return request({
     method: 'POST',
@@ -87,7 +87,7 @@ export const editAccount = data => {
     params: data
   })
 }
-//删除普通管理员
+// 删除普通管理员
 export const deleteAd = data => {
   return request({
     method: 'POST',
@@ -95,7 +95,7 @@ export const deleteAd = data => {
     params: data
   })
 }
-//注册普通管理员
+// 注册普通管理员
 export const addAd = data => {
   return request({
     method: 'POST',
@@ -103,7 +103,7 @@ export const addAd = data => {
     params: data
   })
 }
-//文件上传
+// 文件上传
 export const fileUpload = fd => {
   return request({
     method: 'POST',

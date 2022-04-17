@@ -3,9 +3,7 @@
     <!-- 通知公告导航条 -->
     <el-row type="flex" class="row-bg underline marb10" justify="space-between">
       <span class="color"><b>通知公告</b></span>
-      <span @click="goMore('通知公告')" class="liPointer">
-        更多<i class="el-icon-d-arrow-right"></i>
-      </span>
+      <span @click="goMore('通知公告')" class="liPointer"> 更多<i class="el-icon-d-arrow-right"></i> </span>
     </el-row>
     <!-- 通知公告新闻列表 -->
     <div style="max-height:382px;overflow:hidden;">
@@ -24,17 +22,16 @@
 </template>
 <script>
 import axios from 'axios'
-import {getMinTitle,getNewsList} from '../api/api'
+import { getMinTitle, getNewsList } from '../api/api'
 export default {
   name: 'notice',
   data() {
     return {
-     noticeList: [],
+      noticeList: []
     }
   },
-  created() {
-  },
-  mounted(){
+  created() {},
+  mounted() {
     //获取小标题
     // axios.get('http://localhost:8080/news_category/list/1').then(res => {
     //   console.log(res);
@@ -48,27 +45,29 @@ export default {
   },
   methods: {
     //获取新闻列表
-    getnews(){
+    getnews() {
       const data = {
-        current:1,
-        newsCategoryId:42,
-        size:6
+        current: 1,
+        newsCategoryId: 42,
+        size: 6
       }
-      getNewsList(data).then(res => {
-        console.log(res);
-        if(res.code == 200){
-          this.noticeList = res.data.records
-        }
-      }).catch(error => {
-        console.log(error);
-      })
+      getNewsList(data)
+        .then(res => {
+          console.log(res)
+          if (res.code == 200) {
+            this.noticeList = res.data.records
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     // 去到新闻展示页
     toNoticeMsg(id) {
       this.$router.push({
         path: '/home/news',
         query: {
-          id:id,
+          id: id
         }
       })
     },

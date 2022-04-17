@@ -18,13 +18,7 @@
           </ul>
           <!-- 分页 -->
           <div>
-            <el-pagination
-              background
-              @current-change="handleCurrentChange1"
-              :current-page="currentPagenotice"
-              :page-size="pageSize"
-              layout="prev, pager, next,total"
-              :total="totalnotice">
+            <el-pagination background @current-change="handleCurrentChange1" :current-page="currentPagenotice" :page-size="pageSize" layout="prev, pager, next,total" :total="totalnotice">
             </el-pagination>
           </div>
         </el-card>
@@ -44,21 +38,15 @@
             </ul>
             <!-- 分页 -->
             <div>
-              <el-pagination
-                background
-                @current-change="handleCurrentChange2"
-                :current-page.sync="currentPageschool"
-                :page-size="pageSize"
-                layout="prev, pager, next,total"
-                :total="totalschool">
+              <el-pagination background @current-change="handleCurrentChange2" :current-page.sync="currentPageschool" :page-size="pageSize" layout="prev, pager, next,total" :total="totalschool">
               </el-pagination>
             </div>
-        </el-card>
+          </el-card>
         </ul>
       </div>
       <div v-if="this.$route.query.type == '工作状态'">
-         <ul>
-           <el-card>
+        <ul>
+          <el-card>
             <ul class="ul">
               <li class="lieBiao liPointer flex-v flex-between" :key="index" v-for="(item, index) in workList">
                 <div class="time">
@@ -71,23 +59,17 @@
             </ul>
             <!-- 分页 -->
             <div>
-              <el-pagination
-                background
-                @current-change="handleCurrentChange3"
-                :current-page.sync="currentPagework"
-                :page-size="pageSize"
-                layout="prev, pager, next,total"
-                :total="totalwork">
+              <el-pagination background @current-change="handleCurrentChange3" :current-page.sync="currentPagework" :page-size="pageSize" layout="prev, pager, next,total" :total="totalwork">
               </el-pagination>
             </div>
-           </el-card>
+          </el-card>
         </ul>
       </div>
     </div>
   </div>
 </template>
 <script>
-import {getNewsList} from '../../api/api'
+import { getNewsList } from '../../api/api'
 export default {
   name: 'moreMessage',
   data() {
@@ -95,93 +77,99 @@ export default {
       noticeList: [],
       schoolList: [],
       workList: [],
-      currentPagenotice:1,  //通知公告的当前页
-      currentPageschool:1,  //学院动态的当前页
-      currentPagework:1,  //工作动态的当前页
-      pageSize:10,
-      totalnotice:0,  //通知公告新闻的总条数
-      totalschool:0,  //学院动态新闻的总条数
-      totalwork:0,  //工作动态新闻的总条数
+      currentPagenotice: 1, //通知公告的当前页
+      currentPageschool: 1, //学院动态的当前页
+      currentPagework: 1, //工作动态的当前页
+      pageSize: 10,
+      totalnotice: 0, //通知公告新闻的总条数
+      totalschool: 0, //学院动态新闻的总条数
+      totalwork: 0 //工作动态新闻的总条数
     }
   },
-  mounted(){
-    this.getnotice();
-    this.getwork();
-    this.getschool();
+  mounted() {
+    this.getnotice()
+    this.getwork()
+    this.getschool()
   },
   methods: {
     //通知公告的分页切换
-    handleCurrentChange1(val){
+    handleCurrentChange1(val) {
       // console.log(`当前页: ${val}`);
-      this.currentPagenotice = val;
-      this.getnotice();
+      this.currentPagenotice = val
+      this.getnotice()
     },
     //学院动态的分页切换
-    handleCurrentChange2(val){
+    handleCurrentChange2(val) {
       // console.log(`当前页: ${val}`);
-      this.currentPageschool = val;
-      this.getschool();
+      this.currentPageschool = val
+      this.getschool()
     },
     //工作动态的分页切换
-    handleCurrentChange3(val){
+    handleCurrentChange3(val) {
       // console.log(`当前页: ${val}`);
-      this.currentPagework = val;
-      this.getwork();
+      this.currentPagework = val
+      this.getwork()
     },
     //获取新闻列表
-    getnotice(){
+    getnotice() {
       const data = {
-        current:this.currentPagenotice,
-        newsCategoryId:42,
-        size:this.pageSize
+        current: this.currentPagenotice,
+        newsCategoryId: 42,
+        size: this.pageSize
       }
-      getNewsList(data).then(res => {
-        // console.log(res);
-        if(res.code == 200){
-          this.noticeList = res.data.records
-          this.totalnotice =  res.data.total
-        }
-      }).catch(error => {
-        console.log(error);
-      })
+      getNewsList(data)
+        .then(res => {
+          // console.log(res);
+          if (res.code == 200) {
+            this.noticeList = res.data.records
+            this.totalnotice = res.data.total
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
-    getwork(){
+    getwork() {
       const data = {
-        current:this.currentPagework,
-        newsCategoryId:43,
-        size:this.pageSize
+        current: this.currentPagework,
+        newsCategoryId: 43,
+        size: this.pageSize
       }
-      getNewsList(data).then(res => {
-        // console.log(res);
-        if(res.code == 200){
-          this.workList = res.data.records
-          this.totalwork =  Number(res.data.total)
-        }
-      }).catch(error => {
-        console.log(error);
-      })
+      getNewsList(data)
+        .then(res => {
+          // console.log(res);
+          if (res.code == 200) {
+            this.workList = res.data.records
+            this.totalwork = Number(res.data.total)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
-    getschool(){
+    getschool() {
       const data = {
-        current:this.currentPageschool,
-        newsCategoryId:44,
-        size:this.pageSize
+        current: this.currentPageschool,
+        newsCategoryId: 44,
+        size: this.pageSize
       }
-      getNewsList(data).then(res => {
-        // console.log(res);
-        if(res.code == 200){
-          this.schoolList = res.data.records
-          this.totalschool =  Number(res.data.total)
-        }
-      }).catch(error => {
-        console.log(error);
-      })
+      getNewsList(data)
+        .then(res => {
+          // console.log(res);
+          if (res.code == 200) {
+            this.schoolList = res.data.records
+            this.totalschool = Number(res.data.total)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     toNoticeMsg(id) {
       this.$router.push({
         path: '/home/news',
         query: {
-          id: id,
+          id: id
         }
       })
       window.location.reload()
@@ -190,7 +178,7 @@ export default {
       this.$router.push({
         path: '/home/news',
         query: {
-          id: id,
+          id: id
         }
       })
       window.location.reload()
@@ -199,7 +187,7 @@ export default {
       this.$router.push({
         path: '/home/news',
         query: {
-          id: id,
+          id: id
         }
       })
       window.location.reload()
@@ -207,7 +195,7 @@ export default {
   }
 }
 </script>
-<style >
+<style>
 .underline {
   border-bottom: 1px solid #0f99e9;
 }
@@ -232,8 +220,8 @@ export default {
   /* // background-color: rgb(179, 19, 19); */
   padding: 0 0 0 10px;
 }
-.ul{
+.ul {
   width: 1100px;
   margin: 0;
 }
-</style> 
+</style>

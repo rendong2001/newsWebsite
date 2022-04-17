@@ -74,7 +74,8 @@ export default {
 .bg2 {
   background: url('../assets/wbbg.png') no-repeat 20px 50px;
 }
-.bg,.bg2 {
+.bg,
+.bg2 {
   position: relative;
   height: 120px;
 }
