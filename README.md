@@ -1,14 +1,26 @@
-# 简单的新闻网站
+# 新闻网站
 
-#### 介绍
-此项目是学校新闻与传播学院的网站设计（第一次做的前后端分离项目）
-前端：Vue + Element-UI 后端：Spring Boot + ...
-采用前后端分离的思想，后端提供一系列API接口服务，前端通过axios请求相应的数据并进行展现。完成对新闻（可含图片）的添加，修改，查找，删除
+## 框架
+### [Vue](https://v2.cn.vuejs.org/) [Vue-cli](https://cli.vuejs.org/zh/guide/) [Element](https://element.eleme.io/#/zh-CN)
 
-#### 软件架构
-软件架构说明
-将仓库地址从HTTPS 改为了 SSH
+## 推荐 IDE Setup
 
+- [VS Code](https://code.visualstudio.com/)
+
+## 目录
+- src
+  - assets 静态资源
+  - components 页面
+    - Administrator 后台页面
+    - page 各导航栏页面
+  - api 封装接口
+  - plugins Element ui
+  - utils 请求方法
+  - enums 枚举对象
+  - https 请求方法
+  - views 首页部分区域
+    - homePage 更多的公共组件
+  
 #### 安装教程
 
 1.  ```npm install```
