@@ -16,7 +16,6 @@
   - api 封装接口
   - plugins Element ui
   - utils 请求方法
-  - https 请求方法
   - views 首页部分区域
     - homePage 更多的公共组件
   
