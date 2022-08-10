@@ -44,5 +44,8 @@
 ![文件](./src/assets/preview/file.jpg)
 ![登录](./src/assets/preview/login.jpg)
 ![后台](./src/assets/preview/backstage.jpg)
+![编辑](./src/assets/preview/bianJi.jpg)
+![新闻](./src/assets/preview/info2.jpg)
 ![修改](./src/assets/preview/xiugai.jpg)
+![删除](./src/assets/preview/delete.jpg)
 ![注册](./src/assets/preview/zhuce.jpg)

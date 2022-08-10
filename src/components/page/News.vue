@@ -3,7 +3,7 @@
     <!-- <p>{{ this.$route.query.id }}</p> -->
     <div class="header">
       <h2>{{ title }}</h2>
-      <p>发布日期：{{ releaseTime }} 点击量：[ {{ (hits + 1) / 2 }} ]</p>
+      <p>发布日期：{{ releaseTime }} 点击量：[ {{ hits }} ]</p>
     </div>
     <hr />
     <div v-html="content" class="ql-editor"></div>

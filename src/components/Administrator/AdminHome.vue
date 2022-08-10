@@ -2,7 +2,7 @@
   <el-container class="home-container">
     <el-header>
       <div>
-        <img src="../../assets/head.png" alt="" />
+        <img src="../../assets/logo.jpg" alt="" />
         <span>新闻后台管理系统</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
@@ -48,6 +48,13 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 300px;
+    height: 60px;
+    img {
+      width: 60px;
+      height: 100%;
+      border-radius: 50%;
+    }
     span {
       margin-left: 15px;
     }
